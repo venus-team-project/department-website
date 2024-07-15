@@ -1,0 +1,5 @@
+$test-color: red;
+
+:export {
+    testColor: $test-color;
+}
