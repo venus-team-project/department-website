@@ -1,0 +1,16 @@
+@import '../../app/variables.scss';
+
+.link {
+    &.main {
+        color: $font-color-main;
+        &:hover {
+            color: red; // need to approve color
+        }
+    }
+    &.contrast {
+        color: $font-color-contrast;
+        &:hover {
+            color: red; // need to approve color
+        }
+    }
+}
