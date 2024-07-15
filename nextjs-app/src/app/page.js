@@ -6,13 +6,13 @@ import Header from '@/components/Header/Header'
 export default function Home() {
     return (
         <div className={styles.wrapper}>
-            <Footer />
+            <Header />
             <main className={styles.main}>
                 <Container>
                     <p>main content</p>
                 </Container>
             </main>
-            <Header />
+            <Footer />
         </div>
     )
 }
