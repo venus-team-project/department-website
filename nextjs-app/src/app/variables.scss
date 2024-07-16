@@ -8,6 +8,8 @@ $btn-hover: #96a300;
 // font colors
 $font-color-main: #000;
 $font-color-contrast: #fff;
+$link-color-main: #b92afd;
+$link-color-contrast: #ebff00;
 
 //breakpoints
 $xs: 0px;
@@ -34,6 +36,8 @@ $spacing-6: 48px;
     // font colors
     fontColorMain: $font-color-main;
     fontColorContrast: $font-color-contrast;
+    linkColorMain: $link-color-main;
+    linkColorContrast: $link-color-contrast;
 
     //breakpoints
     sm: $sm;
