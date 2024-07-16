@@ -4,13 +4,13 @@
     &.main {
         color: $font-color-main;
         &:hover {
-            color: $link-color-main; // need to approve color
+            color: $link-color-main;
         }
     }
     &.contrast {
         color: $font-color-contrast;
         &:hover {
-            color: $link-color-contrast; // need to approve color
+            color: $link-color-contrast;
         }
     }
 }
