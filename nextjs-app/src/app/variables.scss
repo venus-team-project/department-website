@@ -1,4 +1,9 @@
 // colors
+// TODO: header is sticky. Need to decive whether to use transparent colors!
+$header-color: linear-gradient(89.31deg,
+        rgba(188, 240, 121, 0.7) 35.35%,
+        rgba(27, 215, 46, 1) 93.16%);
+$header-border-color: #000;
 $footer-color: #245406;
 $bg-color: #edfbdb;
 $gray-500: #5e6063;
@@ -28,6 +33,8 @@ $spacing-6: 48px;
 
 :export {
     // colors
+    headerColor: $header-color;
+    headerBorderColor: $header-border-color;
     footerColor: $footer-color;
     bgColor: $bg-color;
     gray500: $gray-500;
