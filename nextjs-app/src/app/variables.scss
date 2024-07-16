@@ -1,6 +1,9 @@
 // colors
 $footer-color: #245406;
+$bg-color: #edfbdb;
 $gray-500: #5e6063;
+$btn-default: #ffbc0f;
+$btn-hover: #96a300;
 
 // font colors
 $font-color-main: #000;
@@ -24,7 +27,9 @@ $spacing-6: 48px;
 :export {
     // colors
     footerColor: $footer-color;
+    bgColor: $bg-color;
     gray500: $gray-500;
+    btnDefault: $btn-default;
 
     // font colors
     fontColorMain: $font-color-main;
