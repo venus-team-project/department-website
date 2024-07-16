@@ -1,0 +1,49 @@
+@import '../../app/variables.scss';
+
+.greeting {
+    background-color: $bg-color;
+}
+
+.greeting__wrapper {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    width: 100%;
+    padding: $spacing-2 0;
+}
+
+.greeting__text,
+.greeting__img {
+    flex: 1 1 50%;
+}
+
+.greeting__text {
+    text-align: center;
+    h1 {
+        font-size: 24px;
+        font-weight: 400;
+        margin-bottom: $spacing-3;
+    }
+}
+
+.greeting__img {
+    min-height: 336px;
+    position: relative;
+    border-radius: $spacing-1;
+    overflow: hidden;
+}
+
+@media (max-width: $md) {
+    .greeting__wrapper {
+        flex-direction: column;
+    }
+    .greeting__img {
+        min-width: 100%;
+    }
+}
+
+@media (max-width: $sm) {
+    .greeting__wrapper {
+        padding: $spacing-2;
+    }
+}

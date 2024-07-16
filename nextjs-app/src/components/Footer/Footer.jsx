@@ -1,5 +1,5 @@
 import Container from '../Container/Container'
-import StyledLink from '../Link/StyledLink'
+import StyledLink from '../StyledLink/StyledLink'
 import styles from './footer.module.scss'
 
 const GeoIcon = () => {
