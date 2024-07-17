@@ -35,6 +35,7 @@
     max-width: 300px;
     margin: 0;
     transition: 0.5s;
+    text-align: center;
 
     &:hover {
         transform: scale(1.05);
@@ -46,6 +47,7 @@
     font-weight: 700;
     text-decoration: none;
     transition: 0.5s;
+    text-wrap: nowrap;
 
     &:hover {
         text-shadow: 1px 0 0 $font-color-main;
@@ -58,17 +60,10 @@
     position: relative;
     transition: 0.5s;
     text-decoration: none;
-
-    &::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        bottom: -5px;
-        width: 100%;
-        height: 2px;
-        /* Толщина подчёркивания */
-        background-color: $font-color-main;
-    }
+    text-wrap: nowrap;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    text-decoration-thickness: 2px;
 
     &:hover {
         text-shadow: 1px 0 0 $font-color-main;
@@ -154,15 +149,6 @@
     }
 }
 
-.accessibility {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    z-index: 1;
-    width: 100vw;
-    height: 100vh;
-}
-
 .hamburgerButton {
     display: none;
     background: none;
@@ -170,18 +156,68 @@
     cursor: pointer;
     padding: 0;
     margin: 0;
+    margin-right: $spacing-1;
+
+    transition: .2s;
+
+    svg path {
+        transition: .5s;
+    }
+
+    &:hover svg path {
+        stroke: $btn-auth-hover;
+        stroke-width: 5;
+        stroke-linecap: square;
+        stroke-linejoin: bevel;
+    }
+
+    &:active {
+        transform: scale(1.1);
+    }
+}
+
+.accessibility {
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100vh;
 }
 
 .mobileNavigation {
     display: none;
 }
 
+@media (hover: none) {
+    .hamburgerButton {
+        &:hover svg path {
+            stroke: $btn-auth;
+            stroke-width: 4;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        &:active {
+            transform: scale(1.1);
+
+            svg path {
+                stroke: $btn-auth-hover;
+                stroke-width: 5;
+                stroke-linecap: square;
+                stroke-linejoin: bevel;
+            }
+        }
+    }
+}
+
 @media (max-width: $lg) {
     .wrapper {
-        font-size: 90%;
+        font-size: 80%;
     }
 
-    .navList {
+    .nav .navList {
         padding-right: $spacing-1;
         gap: $spacing-1
     }
@@ -227,6 +263,10 @@
     }
 
     .loginBtn {
+        display: flex;
+        justify-content: center;
+        width: fit-content;
+        margin: 0 auto;
         margin-bottom: 7px;
         padding: 5px 25px;
     }
