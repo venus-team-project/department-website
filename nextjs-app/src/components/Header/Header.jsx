@@ -146,7 +146,7 @@ const HamburgerMenu = () => {
                         <ul className={styles.hamburgerNavList}>
                             {links.map((link) => (
                                 <li className={styles.navItem} key={link.href}>
-                                    <NavLink href={link.href}>
+                                    <NavLink key={link.href} href={link.href}>
                                         {link.name}
                                     </NavLink>
                                 </li>
