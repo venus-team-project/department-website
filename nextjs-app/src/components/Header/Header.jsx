@@ -30,7 +30,6 @@ const Left = () => {
 }
 
 const Bar = () => {
-    // TODO: Check color and size
     return (
         <svg
             width="48"
@@ -41,7 +40,7 @@ const Bar = () => {
         >
             <path
                 d="M6 24H42M6 12H42M6 36H42"
-                stroke="#fce76c"
+                stroke="#f6f4bc"
                 stroke-width="4"
                 stroke-linecap="round"
                 stroke-linejoin="round"
@@ -71,11 +70,9 @@ const NavLink = ({ children, href }) => {
 
 const AuthButton = ({ href, style, children }) => {
     return (
-        <button type="button" className={style}>
-            <Link href={href} className={styles.link}>
-                {children}
-            </Link>
-        </button>
+        <Link href={href} className={`${style} ${styles.link}`}>
+            {children}
+        </Link>
     )
 }
 
@@ -152,9 +149,11 @@ const HamburgerMenu = () => {
                                 </li>
                             ))}
                             <li className={styles.navItem}>
-                                <AuthButton href="/" style={styles.loginBtn}>
-                                    Вхід
-                                </AuthButton>
+                                <div className={styles.loginBtn}>
+                                    <AuthButton href="/" style={''}>
+                                        Вхід
+                                    </AuthButton>
+                                </div>
                             </li>
                         </ul>
                     </div>
