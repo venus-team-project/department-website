@@ -55,11 +55,20 @@
 .navBarLinkActive {
     color: $font-color-main;
     font-weight: 700;
-    // TODO: Underline doesn't work properly when text is placed in multiple lines
-    text-decoration: underline;
-    text-underline-offset: 0.7rem;
-    text-decoration-thickness: 2px;
+    position: relative;
     transition: 0.5s;
+    text-decoration: none;
+
+    &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -5px;
+        width: 100%;
+        height: 2px;
+        /* Толщина подчёркивания */
+        background-color: $font-color-main;
+    }
 
     &:hover {
         text-shadow: 1px 0 0 $font-color-main;
@@ -107,7 +116,7 @@
     left: 0;
     width: 100%;
     border-top: 0.1rem solid rgba(0, 0, 0, 0.5);
-    // TODO: Looks awful. Need fix
+    // TODO: Looks 🤷‍♂️. Need fix
     background: $header-color;
     overflow: hidden;
     opacity: 0;
@@ -197,7 +206,14 @@
     }
 
     .navBarLinkActive {
+        text-decoration: underline;
+        text-underline-offset: 0.7rem;
+        text-decoration-thickness: 2px;
         text-underline-offset: 0.3rem;
+
+        &::after {
+            display: none;
+        }
     }
 
     .loginBtn {
