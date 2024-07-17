@@ -3,12 +3,15 @@
 .link {
     &.main {
         color: $font-color-main;
+
         &:hover {
             color: $link-color-main;
         }
     }
+
     &.contrast {
         color: $font-color-contrast;
+
         &:hover {
             color: $link-color-contrast;
         }
