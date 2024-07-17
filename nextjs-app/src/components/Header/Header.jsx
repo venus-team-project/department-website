@@ -71,7 +71,7 @@ const NavLink = ({ children, href }) => {
 
 const AuthButton = ({ href, style, children }) => {
     return (
-        <button type='button' className={style}>
+        <button type="button" className={style}>
             <Link href={href} className={styles.link}>
                 {children}
             </Link>
@@ -92,14 +92,14 @@ const Navigation = () => {
         <nav className={styles.nav}>
             <ul className={styles.navList}>
                 {links.map((link) => (
-                    <li className={styles.navItem}>
+                    <li className={styles.navItem} key={link.name}>
                         <NavLink key={link.href} href={link.href}>
                             {link.name}
                         </NavLink>
                     </li>
                 ))}
             </ul>
-            <AuthButton href='/' style={styles.loginBtn}>
+            <AuthButton href="/" style={styles.loginBtn}>
                 Вхід
             </AuthButton>
         </nav>
@@ -152,7 +152,9 @@ const HamburgerMenu = () => {
                                 </li>
                             ))}
                             <li className={styles.navItem}>
-                                <AuthButton href='/' style={styles.loginBtn}>Вхід</AuthButton>
+                                <AuthButton href="/" style={styles.loginBtn}>
+                                    Вхід
+                                </AuthButton>
                             </li>
                         </ul>
                     </div>
