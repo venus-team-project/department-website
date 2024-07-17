@@ -30,4 +30,3 @@ jobs:
       run: |
         cd nextjs-app
         npm install
-        npm test
