@@ -48,7 +48,7 @@ jobs:
           ls -la /home/runner/work/department-website/department-website/nextjs-app/.next
 
       - name: Copy folder content recursively to remote
-        uses: ./
+        uses: TwanLuttik/gh-action-scp@latest
         with:
           local: /home/runner/work/department-website/department-website/nextjs-app/.next
           remote: /var/www/html
