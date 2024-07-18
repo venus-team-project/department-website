@@ -80,18 +80,22 @@ jobs:
           key: ${{ secrets.GCP_SSH_KEY }}
           port: 22
           script: |
-            # Stop any running backend service
-            sudo systemctl stop backend-service
+            # # Stop any running backend service
+            # sudo systemctl stop backend-service
+            ls -la
+            pwd
+            scp -r -i ${{ secrets.GCP_SSH_KEY }} /home/runner/work/department-website/department-website/nextjs-app/out/* venus@34.29.105.94:/var/www/html
+            
 
-            # Upload frontend build
-            cp -r /home/runner/work/department-website/department-website/nextjs-app/out/* /var/www/html/frontend
+            # # Upload frontend build
+            # cp -r /home/runner/work/department-website/department-website/nextjs-app/out/* /var/www/html/frontend
 
-            # Upload backend jar
-            cp /home/runner/work/department-website/department-website/be/teachers-db-rest-demo/target/*.jar /home/backend/
+            # # Upload backend jar
+            # cp /home/runner/work/department-website/department-website/be/teachers-db-rest-demo/target/*.jar /home/backend/
 
-            # Run backend jar
-            cd /home/backend
-            nohup java -jar target/*.jar > backend-logs.txt 2>&1 &
+            # # Run backend jar
+            # cd /home/backend
+            # nohup java -jar target/*.jar > backend-logs.txt 2>&1 &
 
-            # Start backend service
-            sudo systemctl start backend-service
+            # # Start backend service
+            # sudo systemctl start backend-service
