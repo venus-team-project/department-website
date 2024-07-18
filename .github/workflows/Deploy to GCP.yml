@@ -23,6 +23,8 @@ jobs:
         run: |
           cd be/teachers-db-rest-demo
           mvn -B package --file pom.xml
+          ls -la
+          pwd
       - uses: actions/checkout@v2
       - name: Use Node.js 18.x
         uses: actions/setup-node@v2
@@ -34,6 +36,8 @@ jobs:
           cd nextjs-app
           npm install
           npm run build
+          ls -la
+          pwd
       - name: Configure Nginx
         run: |
           echo "server {
