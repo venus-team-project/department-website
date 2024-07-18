@@ -51,7 +51,7 @@ jobs:
         uses: garygrossgarten/github-action-scp@release
         with:
           local: /home/runner/work/department-website/department-website/nextjs-app/.next
-          remote: /home/venus/frontend
+          remote: /home/venus/frontend/.next
           host: 34.29.105.94
           username: venus
           privateKey: ${{ secrets.GCP_SSH_KEY}}
