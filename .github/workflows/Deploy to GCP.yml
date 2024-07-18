@@ -38,39 +38,39 @@ jobs:
           npm run build
           ls -la
           pwd
-      - name: Configure Nginx
-        run: |
-          echo "server {
-             listen 80;
-             server_name your-domain.com;
+      # - name: Configure Nginx
+      #   run: |
+      #     echo "server {
+      #        listen 80;
+      #        server_name your-domain.com;
 
-             location / {
-               root /var/www/html/frontend/out;
-               try_files $uri $uri/ /index.html;
-             }
+      #        location / {
+      #          root /var/www/html/frontend/out;
+      #          try_files $uri $uri/ /index.html;
+      #        }
 
-             location /api {
-               proxy_pass http://localhost:8080;
-               proxy_set_header Host $host;
-               proxy_set_header X-Real-IP $remote_addr;
-               proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-             }
-           }" > /etc/nginx/sites-available/default
+      #        location /api {
+      #          proxy_pass http://localhost:8080;
+      #          proxy_set_header Host $host;
+      #          proxy_set_header X-Real-IP $remote_addr;
+      #          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      #        }
+      #      }" > /etc/nginx/sites-available/default
 
-      - name: Restart Nginx
-        run: systemctl restart nginx
+      # - name: Restart Nginx
+      #   run: systemctl restart nginx
 
       - name: Upload Frontend
         uses: actions/upload-artifact@v3
         with:
           name: frontend-build
-          path: frontend/out
+          path: nextjs-app/out
 
       - name: Upload Backend Jar
         uses: actions/upload-artifact@v3
         with:
           name: backend-jar
-          path: backend/target/*.jar
+          path: be/teachers-db-rest-demo/target/*.jar
 
       - name: SSH to VM
         uses: appleboy/ssh-action@master
@@ -84,10 +84,10 @@ jobs:
             sudo systemctl stop backend-service
 
             # Upload frontend build
-            cp -r /home/runner/work/department-website/frontend/out/* /var/www/html/frontend
+            cp -r /home/runner/work/department-website/department-website/nextjs-app/out/* /var/www/html/frontend
 
             # Upload backend jar
-            cp /home/runner/work/department-website/backend/target/*.jar /home/backend/
+            cp /home/runner/work/department-website/department-website/be/teachers-db-rest-demo/target/*.jar /home/backend/
 
             # Run backend jar
             cd /home/backend
