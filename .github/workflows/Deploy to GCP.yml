@@ -46,7 +46,7 @@ jobs:
 
           ls -la /home/runner/work/department-website/department-website/nextjs-app
 
-          # scp -r -i ${{ secrets.GCP_SSH_KEY }} /home/runner/work/department-website/department-website/nextjs-app/out/* venus@34.29.105.94:/var/www/html
+          scp -r -i ${{ secrets.GCP_SSH_KEY }} /home/runner/work/department-website/department-website/nextjs-app/.next/* venus@34.29.105.94:/var/www/html
       # - name: Configure Nginx
       #   run: |
       #     echo "server {
