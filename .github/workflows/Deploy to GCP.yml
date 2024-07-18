@@ -26,7 +26,7 @@ jobs:
           
           ls -la /home/runner/work
           
-          ls -la /home/runner/work/department-website
+          ls -la /home/runner/work/department-website/department-website
           
           ls -la
           pwd
