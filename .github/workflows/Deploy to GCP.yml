@@ -23,6 +23,11 @@ jobs:
         run: |
           cd be/teachers-db-rest-demo
           mvn -B package --file pom.xml
+          
+          ls -la /home/runner/work
+          
+          ls -la /home/runner/work/department-website
+          
           ls -la
           pwd
           cd ..
