@@ -19,18 +19,24 @@ jobs:
           distribution: "temurin"
           cache: maven
 
-      # - name: Build Backend
-      #   run: |
-      #     cd be/teachers-db-rest-demo
-      #     mvn -B package --file pom.xml
-      #     ls -la
-      #     pwd
-      #     scp -r -i ${{ secrets.GCP_SSH_KEY }} /home/runner/work/department-website/department-website/be/teachers-db-rest-demo/target/*.jar venus@34.29.105.94:/var/www/html
-      # - uses: actions/checkout@v2
-      # - name: Use Node.js 18.x
-      #   uses: actions/setup-node@v2
-      #   with:
-      #     node-version: 18.x
+      - name: Build Backend
+        run: |
+          cd be/teachers-db-rest-demo
+          mvn -B package --file pom.xml
+          ls -la
+          pwd
+          cd ..
+          ls -la
+          pwd
+          cd ..
+          ls -la
+          pwd
+          # scp -r -i ${{ secrets.GCP_SSH_KEY }} /home/runner/work/department-website/department-website/be/teachers-db-rest-demo/target/*.jar venus@34.29.105.94:/var/www/html
+      - uses: actions/checkout@v2
+      - name: Use Node.js 18.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18.x
 
       - name: Build Frontend
         run: |
@@ -39,7 +45,13 @@ jobs:
           npm run build
           ls -la
           pwd
-          scp -r -i ${{ secrets.GCP_SSH_KEY }} /home/runner/work/department-website/department-website/nextjs-app/out/* venus@34.29.105.94:/var/www/html
+          cd ..
+          ls -la
+          pwd
+          cd ..
+          ls -la
+          pwd
+          # scp -r -i ${{ secrets.GCP_SSH_KEY }} /home/runner/work/department-website/department-website/nextjs-app/out/* venus@34.29.105.94:/var/www/html
       # - name: Configure Nginx
       #   run: |
       #     echo "server {
