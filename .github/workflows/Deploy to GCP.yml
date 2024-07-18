@@ -27,15 +27,10 @@ jobs:
           ls -la /home/runner/work
           
           ls -la /home/runner/work/department-website/department-website
+          ls -la /home/runner/work/department-website/department-website/be
+          ls -la /home/runner/work/department-website/department-website/be/teachers_db_demo
+          ls -la /home/runner/work/department-website/department-website/nextjs-app
           
-          ls -la
-          pwd
-          cd ..
-          ls -la
-          pwd
-          cd ..
-          ls -la
-          pwd
           # scp -r -i ${{ secrets.GCP_SSH_KEY }} /home/runner/work/department-website/department-website/be/teachers-db-rest-demo/target/*.jar venus@34.29.105.94:/var/www/html
       - uses: actions/checkout@v2
       - name: Use Node.js 18.x
