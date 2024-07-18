@@ -19,17 +19,17 @@ jobs:
           distribution: "temurin"
           cache: maven
 
-      - name: Build Backend
-        run: |
-          cd be/teachers-db-rest-demo
-          mvn -B package --file pom.xml
+      # - name: Build Backend
+      #   run: |
+      #     cd be/teachers-db-rest-demo
+      #     mvn -B package --file pom.xml
           
-          ls -la /home/runner/work
+      #     ls -la /home/runner/work
           
-          ls -la /home/runner/work/department-website/department-website
-          ls -la /home/runner/work/department-website/department-website/be
-          ls -la /home/runner/work/department-website/department-website/be/teachers-db-rest-demo
-          ls -la /home/runner/work/department-website/department-website/nextjs-app
+      #     ls -la /home/runner/work/department-website/department-website
+      #     ls -la /home/runner/work/department-website/department-website/be
+      #     ls -la /home/runner/work/department-website/department-website/be/teachers-db-rest-demo
+      #     ls -la /home/runner/work/department-website/department-website/nextjs-app
           
           # scp -r -i ${{ secrets.GCP_SSH_KEY }} /home/runner/work/department-website/department-website/be/teachers-db-rest-demo/target/*.jar venus@34.29.105.94:/var/www/html
       - uses: actions/checkout@v2
@@ -43,14 +43,9 @@ jobs:
           cd nextjs-app
           npm install
           npm run build
-          ls -la
-          pwd
-          cd ..
-          ls -la
-          pwd
-          cd ..
-          ls -la
-          pwd
+
+          ls -la /home/runner/work/department-website/department-website/nextjs-app
+
           # scp -r -i ${{ secrets.GCP_SSH_KEY }} /home/runner/work/department-website/department-website/nextjs-app/out/* venus@34.29.105.94:/var/www/html
       # - name: Configure Nginx
       #   run: |
