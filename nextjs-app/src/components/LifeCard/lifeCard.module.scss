@@ -25,3 +25,18 @@
     position: relative;
     height: 176px;
 }
+
+.life__card__news {
+    @extend .life__card;
+    grid-template-rows: none;
+    display: flex;
+    align-items: center;
+    height: 200px;
+}
+
+@media (max-width: $md) {
+    .life__card__news {
+        display: grid;
+        height: initial;
+    }
+}
