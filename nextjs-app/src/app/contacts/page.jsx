@@ -9,7 +9,7 @@ export default function Contacts() {
             <Header />
             <main className={styles.main}>
                 <Container>
-                    <p>In development...</p>
+                    <p>In development... (test)</p>
                 </Container>
             </main>
             <Footer />
