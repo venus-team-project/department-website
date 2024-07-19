@@ -12,7 +12,7 @@ export default function Contacts() {
     const loadPosts = async () => {
         try {
             const responsePosts = await fetch(
-                'https://localhost/api/db/books/list'
+                'https://department-website.bulhakov.dev/api/db/books/list'
             )
             const newPosts = await responsePosts.json()
 
