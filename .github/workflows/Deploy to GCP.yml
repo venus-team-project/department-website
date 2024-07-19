@@ -24,24 +24,43 @@ jobs:
       #     cd be/teachers-db-rest-demo
       #     mvn -B package --file pom.xml
 
-      - uses: actions/checkout@v2
-      - name: Use Node.js 18.x
-        uses: actions/setup-node@v2
-        with:
-          node-version: 18.x
+      # - uses: actions/checkout@v2
+      # - name: Use Node.js 18.x
+      #   uses: actions/setup-node@v2
+      #   with:
+      #     node-version: 18.x
 
-      - name: Build Frontend
-        run: |
-          cd nextjs-app
-          npm install
-          npm run build
+      # - name: Build Frontend
+      #   run: |
+      #     cd nextjs-app
+      #     npm install
+      #     npm run build
 
-      - name: Copy frontend build to remote
-        uses: garygrossgarten/github-action-scp@release
+      - name: SSH to VM
+        uses: appleboy/ssh-action@master
         with:
-          local: /home/runner/work/department-website/department-website/nextjs-app/.next
-          remote: /var/www/nextjs-app/.next
-          host: 34.173.94.214
+          host: 35.208.11.42
           username: venus
-          privateKey: ${{ secrets.GCP_SSH_KEY}}
+          key: ${{ secrets.GCP_SSH_KEY }}
+          port: 22
+          script: |
+            # Go to app folder
+            cd ~/department-website/nextjs-app
 
+            # Stop pm2 process
+            pm2 stop 0
+            
+            # Go to repo folder
+            cd ..
+            
+            # Pull changes from remote origin
+            git pull
+            
+            # Go to app folder
+            cd nextjs-app
+            
+            # Rebuild app
+            npm run build
+            
+            # Restart pm2 process
+            pm2 restart 0
