@@ -33,7 +33,7 @@ export default function Contacts() {
                 <Container>
                     <p>In development... (test)</p>
                     {posts.map((post) => (
-                        <p>{JSON.stringify(post)}</p>
+                        <p key={post.id}>{JSON.stringify(post)}</p>
                     ))}
                 </Container>
             </main>
