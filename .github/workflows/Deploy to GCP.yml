@@ -58,6 +58,9 @@ jobs:
             # Go to app folder
             cd nextjs-app
             
+            # Install dependency
+            npm install
+            
             # Rebuild app
             npm run build
             
