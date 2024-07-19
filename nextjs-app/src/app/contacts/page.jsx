@@ -10,9 +10,6 @@ export default function Contacts() {
             <main className={styles.main}>
                 <Container>
                     <p>In development... (test)</p>
-                    {posts.map((post) => (
-                        <p key={post.id}>{JSON.stringify(post)}</p>
-                    ))}
                 </Container>
             </main>
             <Footer />
