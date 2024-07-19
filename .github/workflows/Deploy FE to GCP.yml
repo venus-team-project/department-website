@@ -3,7 +3,7 @@ name: Deploy FE to GCP
 on:
   push:
     branches:
-      - test-be-connect
+      - main
     paths:
       - 'nextjs-app/**'
       
