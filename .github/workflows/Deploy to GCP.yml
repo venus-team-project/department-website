@@ -42,7 +42,9 @@ jobs:
           username: venus
           key: ${{ secrets.GCP_SSH_KEY }}
           port: 22
-          script: |       
+          script: |
+            source ~/.bashrc
+            source ~/.profile
             # Go to app folder
             cd department-website/nextjs-app
 
