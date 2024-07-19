@@ -46,21 +46,28 @@ jobs:
           script: |
             # Go to app folder
             cd ~/department-website/nextjs-app
+            ls -la
+            pwd
 
-            # Stop pm2 process
-            pm2 stop 0
+            node -v
+            npm -v
+            pm2 -v
+            pm2 status
+
+            # # Stop pm2 process
+            # pm2 stop 0
             
-            # Go to repo folder
-            cd ..
+            # # Go to repo folder
+            # cd ..
             
-            # Pull changes from remote origin
-            git pull
+            # # Pull changes from remote origin
+            # git pull
             
-            # Go to app folder
-            cd nextjs-app
+            # # Go to app folder
+            # cd nextjs-app
             
-            # Rebuild app
-            npm run build
+            # # Rebuild app
+            # npm run build
             
-            # Restart pm2 process
-            pm2 restart 0
+            # # Restart pm2 process
+            # pm2 restart 0
