@@ -10,12 +10,16 @@ export default function Contacts() {
     const [posts, setPosts] = useState([])
 
     const loadPosts = async () => {
-        const responsePosts = await fetch(
-            'http://localhost:8080/api/db/books/list'
-        )
-        const newPosts = await responsePosts.json()
+        try {
+            const responsePosts = await fetch(
+                'http://localhost:8080/api/db/books/list'
+            )
+            const newPosts = await responsePosts.json()
 
-        setPosts((prevPosts) => [...prevPosts, ...newPosts])
+            setPosts((prevPosts) => [...prevPosts, ...newPosts])
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     useEffect(() => {
