@@ -3,7 +3,7 @@ name: Deploy to GCP
 on:
   push:
     branches:
-      - main
+      - uncomment-deploy-script
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -46,20 +46,20 @@ jobs:
             # Go to app folder
             cd department-website/nextjs-app
 
-            # # Stop pm2 process
-            # pm2 stop 0
+            # Stop pm2 process
+            pm2 stop 0
             
-            # # Go to repo folder
-            # cd ..
+            # Go to repo folder
+            cd ..
             
-            # # Pull changes from remote origin
-            # git pull
+            # Pull changes from remote origin
+            git pull
             
-            # # Go to app folder
-            # cd nextjs-app
+            # Go to app folder
+            cd nextjs-app
             
-            # # Rebuild app
-            # npm run build
+            # Rebuild app
+            npm run build
             
-            # # Restart pm2 process
-            # pm2 restart 0
+            # Restart pm2 process
+            pm2 restart 0
