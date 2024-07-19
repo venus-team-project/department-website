@@ -39,23 +39,13 @@ jobs:
       - name: SSH to VM
         uses: appleboy/ssh-action@master
         with:
-          host: 35.208.11.42
+          host: 35.208.215.217
           username: venus
           key: ${{ secrets.GCP_SSH_KEY }}
           port: 22
           script: |       
-            # Change user
-            sudo su -
-            
             # Go to app folder
-            cd /root/department-website/nextjs-app
-            ls -la
-            pwd
-
-            node -v
-            npm -v
-            pm2 -v
-            pm2 status
+            cd department-website/nextjs-app
 
             # # Stop pm2 process
             # pm2 stop 0
