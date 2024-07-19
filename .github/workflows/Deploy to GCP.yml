@@ -44,8 +44,11 @@ jobs:
           key: ${{ secrets.GCP_SSH_KEY }}
           port: 22
           script: |       
+            # Change user
+            sudo su -
+            
             # Go to app folder
-            cd /root/department-website/nextjs-app
+            cd department-website/nextjs-app
             ls -la
             pwd
 
