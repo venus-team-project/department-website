@@ -48,7 +48,7 @@ jobs:
             sudo su -
             
             # Go to app folder
-            cd department-website/nextjs-app
+            cd /root/department-website/nextjs-app
             ls -la
             pwd
 
