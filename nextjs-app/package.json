@@ -11,6 +11,14 @@
         "format:fix": "prettier --write --ignore-path .gitignore ."
     },
     "dependencies": {
+        "@emotion/cache": "^11.13.0",
+        "@emotion/react": "^11.13.0",
+        "@emotion/styled": "^11.13.0",
+        "@fontsource/montserrat": "^5.0.18",
+        "@fontsource/roboto": "^5.0.13",
+        "@mui/icons-material": "^5.16.4",
+        "@mui/material": "^5.16.4",
+        "@mui/material-nextjs": "^5.16.4",
         "next": "14.2.5",
         "normalize.css": "^8.0.1",
         "react": "^18",
