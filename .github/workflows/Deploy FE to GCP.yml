@@ -17,7 +17,7 @@ jobs:
       - name: SSH to VM
         uses: appleboy/ssh-action@master
         with:
-          host: 35.208.215.217
+          host: 35.208.11.42
           username: venus
           key: ${{ secrets.GCP_SSH_KEY }}
           port: 22
