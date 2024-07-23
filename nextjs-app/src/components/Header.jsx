@@ -23,6 +23,11 @@ import { useState } from 'react'
 
 export default function Header() {
     const [open, setOpen] = useState(false)
+    const path = usePathname()
+
+    const isActive = (url) => {
+        return url === path
+    }
 
     const handleClose = () => {
         setOpen(false)
@@ -30,10 +35,6 @@ export default function Header() {
 
     const handleOpen = () => {
         setOpen(true)
-    }
-
-    const isActive = (url) => {
-        return url === usePathname()
     }
 
     const links = [
