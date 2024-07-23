@@ -1,7 +1,7 @@
-import { Montserrat } from 'next/font/google'
-import './globals.scss'
-
-const montserrat = Montserrat({ subsets: ['cyrillic'] })
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter'
+import { ThemeProvider } from '@mui/material/styles'
+import theme from './theme'
+import { Box, CssBaseline } from '@mui/material'
 
 export const metadata = {
     title: 'Create Next App',
@@ -11,7 +11,23 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html lang="uk">
-            <body className={montserrat.className}>{children}</body>
+            <body>
+                <AppRouterCacheProvider>
+                    <CssBaseline />
+                    <ThemeProvider theme={theme}>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                minHeight: '100vh',
+                                minWidth: '100%',
+                            }}
+                        >
+                            {children}
+                        </Box>
+                    </ThemeProvider>
+                </AppRouterCacheProvider>
+            </body>
         </html>
     )
 }
