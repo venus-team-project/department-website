@@ -48,7 +48,7 @@ export default function Contacts() {
                         </Grid>
                         <Grid item md={8} display="flex" flexDirection="column">
                             <FormControl>
-                                <FormLabel required={true}>Ім'я</FormLabel>
+                                <FormLabel required={true}>Ім&apos;я</FormLabel>
                                 <TextField></TextField>
                                 <FormLabel required={true}>Email</FormLabel>
                                 <TextField></TextField>
@@ -70,14 +70,8 @@ export default function Contacts() {
                             width="100%"
                             height="600"
                             frameborder="0"
-                            scrolling="no"
-                            marginHeight="0"
-                            marginWidth="0"
                             src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=%D0%9A%D0%B8%D1%97%D0%B2%D1%81%D1%8C%D0%BA%D0%B8%D0%B9%20%D0%9F%D0%BE%D0%BB%D1%96%D1%82%D0%B5%D1%85%D0%BD%D1%96%D1%87%D0%BD%D0%B8%D0%B9%20%D0%86%D0%BD%D1%81%D1%82%D0%B8%D1%82%D1%83+()&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
                         >
-                            <a href="https://www.gps.ie/">
-                                gps vehicle tracker
-                            </a>
                         </iframe>
                     </div>
                 </Container>
