@@ -10,4 +10,6 @@ public interface BookService {
   List<Book> list();
 
   Optional<Book> findBook(Long id);
+  void savePdf(Long id, MultipartFile file) throws IOException;
+  void deleteBook(Long id); // Додаємо метод deleteBook
 }
