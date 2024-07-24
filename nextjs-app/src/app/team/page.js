@@ -119,16 +119,32 @@ const AboutCard = (card) => {
 }
 
 const firstColumnPhotos = [
-    { src: '/about/firstColumn/1.png' },
-    { src: '/about/firstColumn/2.png' },
-    { src: '/about/firstColumn/3.png' },
-    { src: '/about/firstColumn/4.png' },
+    { src: '/about/firstColumn/1.png',
+        alt: ''
+     },
+    { src: '/about/firstColumn/2.png',
+        alt: ''
+    },
+    { src: '/about/firstColumn/3.png',
+        alt: ''
+     },
+    { src: '/about/firstColumn/4.png', 
+        alt: ''
+    },
 ]
 const secondColumnPhotos = [
-    { src: '/about/secondColumn/1.png' },
-    { src: '/about/secondColumn/2.png' },
-    { src: '/about/secondColumn/3.png' },
-    { src: '/about/secondColumn/4.png' },
+    { src: '/about/secondColumn/1.png',
+        alt: ''
+    },
+    { src: '/about/secondColumn/2.png',
+        alt: ''
+    },
+    { src: '/about/secondColumn/3.png',
+        alt: ''
+     },
+    { src: '/about/secondColumn/4.png',
+        alt: ''
+    },
 ]
 
 const PhotoColumn = (photo) => {
@@ -137,6 +153,7 @@ const PhotoColumn = (photo) => {
             borderRadius={4}
             component="img"
             src={photo.src}
+            alt={photo.alt}
             width="100%"
             height="100%"
             sx={{ objectFit: 'cover' }}
@@ -147,6 +164,7 @@ const PhotoColumn = (photo) => {
 const professors = [
     {
         img: '/about/professors/1.png',
+        alt: 'Ivanov O.P.',
         title: 'Завідувач кафедри,',
         degree: 'д.т.н., професор Іванов О.П.',
         abstract:
@@ -154,6 +172,7 @@ const professors = [
     },
     {
         img: '/about/professors/2.png',
+        alt: 'Ivanova I.I.',
         title: 'Професорка кафедри,',
         degree: 'к.т.н.,  Іванова І.І.',
         abstract:
@@ -161,6 +180,7 @@ const professors = [
     },
     {
         img: '/about/professors/3.png',
+        alt: 'Ivanova I.I.',
         title: 'Ще одна професорка кафедри,',
         degree: 'к.т.н.,  Іванова І.І.',
         abstract:
@@ -213,7 +233,7 @@ export default function Team() {
                     component="main"
                     sx={{
                         flexGrow: 1,
-                        fontSize: 42,
+                        fontSize: 48,
                     }}
                 >
                     <Container maxWidth="xl">
