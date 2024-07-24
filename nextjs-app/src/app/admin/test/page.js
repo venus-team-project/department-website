@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Box, CssBaseline, Typography } from '@mui/material';
+import Image from 'next/image';
 import SideMenu from '../../../components/admin/SideMenu';
 import Header from '../../../components/admin/Header';
 import theme from '../../../app/theme.js';
@@ -10,21 +11,30 @@ const drawerWidth = 240;
 const drawerBreakpoint = 900;
 
 export default function NewPage() {
-    const [mobileOpen, setMobileOpen] = useState(window.innerWidth >= drawerBreakpoint);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < drawerBreakpoint);
+    const [mobileOpen, setMobileOpen] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
         const handleResize = () => {
-            setIsMobile(window.innerWidth < drawerBreakpoint);
-            if (window.innerWidth >= drawerBreakpoint) {
-                setMobileOpen(true);
+            if (typeof window !== 'undefined') {
+                setIsMobile(window.innerWidth < drawerBreakpoint);
+                if (window.innerWidth >= drawerBreakpoint) {
+                    setMobileOpen(true);
+                }
             }
         };
 
-        window.addEventListener('resize', handleResize);
-        handleResize();
+        if (typeof window !== 'undefined') {
+            setIsMobile(window.innerWidth < drawerBreakpoint);
+            setMobileOpen(window.innerWidth >= drawerBreakpoint);
+            window.addEventListener('resize', handleResize);
+        }
 
-        return () => window.removeEventListener('resize', handleResize);
+        return () => {
+            if (typeof window !== 'undefined') {
+                window.removeEventListener('resize', handleResize);
+            }
+        };
     }, []);
 
     const handleDrawerToggle = () => {
@@ -61,7 +71,13 @@ export default function NewPage() {
                             Assumenda dignissimos doloremque qui quibusdam.
                         </div>
                     </Typography>
-                    <img src="https://icons.getbootstrap.com/assets/img/icons-hero@2x.png" alt="Example" style={{ maxWidth: '100%', height: 'auto' }} />
+                    <Image
+                        src="https://icons.getbootstrap.com/assets/img/icons-hero@2x.png"
+                        alt="Example"
+                        layout="responsive"
+                        maxWidth={'100%'}
+                        height={'auto'}
+                    />
                 </Box>
             </Box>
         </Box>

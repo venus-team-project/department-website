@@ -33,21 +33,30 @@ export default function Publications() {
     const [orderBy, setOrderBy] = useState('title');
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
-    const [mobileOpen, setMobileOpen] = useState(window.innerWidth >= drawerBreakpoint);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < drawerBreakpoint);
+    const [mobileOpen, setMobileOpen] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
         const handleResize = () => {
-            setIsMobile(window.innerWidth < drawerBreakpoint);
-            if (window.innerWidth >= drawerBreakpoint) {
-                setMobileOpen(true);
+            if (typeof window !== 'undefined') {
+                setIsMobile(window.innerWidth < drawerBreakpoint);
+                if (window.innerWidth >= drawerBreakpoint) {
+                    setMobileOpen(true);
+                }
             }
         };
 
-        window.addEventListener('resize', handleResize);
-        handleResize();
+        if (typeof window !== 'undefined') {
+            setIsMobile(window.innerWidth < drawerBreakpoint);
+            setMobileOpen(window.innerWidth >= drawerBreakpoint);
+            window.addEventListener('resize', handleResize);
+        }
 
-        return () => window.removeEventListener('resize', handleResize);
+        return () => {
+            if (typeof window !== 'undefined') {
+                window.removeEventListener('resize', handleResize);
+            }
+        };
     }, []);
 
     const handleRequestSort = (property) => {
