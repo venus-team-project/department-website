@@ -119,30 +119,30 @@ const AboutCard = (card) => {
 }
 
 const firstColumnPhotos = [
-    { src: '/about/firstColumn/1.png',
+    { src: '/team/firstColumn/1.png',
         alt: ''
      },
-    { src: '/about/firstColumn/2.png',
+    { src: '/team/firstColumn/2.png',
         alt: ''
     },
-    { src: '/about/firstColumn/3.png',
+    { src: '/team/firstColumn/3.png',
         alt: ''
      },
-    { src: '/about/firstColumn/4.png', 
+    { src: '/team/firstColumn/4.png', 
         alt: ''
     },
 ]
 const secondColumnPhotos = [
-    { src: '/about/secondColumn/1.png',
+    { src: '/team/secondColumn/1.png',
         alt: ''
     },
-    { src: '/about/secondColumn/2.png',
+    { src: '/team/secondColumn/2.png',
         alt: ''
     },
-    { src: '/about/secondColumn/3.png',
+    { src: '/team/secondColumn/3.png',
         alt: ''
      },
-    { src: '/about/secondColumn/4.png',
+    { src: '/team/secondColumn/4.png',
         alt: ''
     },
 ]
@@ -163,24 +163,27 @@ const PhotoColumn = (photo) => {
 
 const professors = [
     {
-        img: '/about/professors/1.png',
-        alt: 'Ivanov O.P.',
+        img: '/team/professors/1.png',
+        alt: 'professor\'s picture',
+        id: 1,
         title: 'Завідувач кафедри,',
         degree: 'д.т.н., професор Іванов О.П.',
         abstract:
             'Педагогічний стаж - понад 20 років, Коло наукових інтересів - використання інноваційних технологій в садівництві...',
     },
     {
-        img: '/about/professors/2.png',
-        alt: 'Ivanova I.I.',
+        img: '/team/professors/2.png',
+        alt: 'professor\'s picture',
+        id: 2,
         title: 'Професорка кафедри,',
         degree: 'к.т.н.,  Іванова І.І.',
         abstract:
             'Педагогічний стаж -  15 років, Коло наукових інтересів - використання інноваційних технологій в садівництві...',
     },
     {
-        img: '/about/professors/3.png',
-        alt: 'Ivanova I.I.',
+        img: '/team/professors/3.png',
+        alt: 'professor\'s picture',
+        id: 3,
         title: 'Ще одна професорка кафедри,',
         degree: 'к.т.н.,  Іванова І.І.',
         abstract:
@@ -194,6 +197,7 @@ const ProfessorCard = (card) => {
             <Grid item md={4} pr={4}>
                 <Box
                     component="img"
+                    alt={card.alt}
                     src={card.img}
                     width="100%"
                     height="100%"
@@ -213,7 +217,7 @@ const ProfessorCard = (card) => {
                     <Typography variant="h6">{card.degree}</Typography>
                     <Typography>{card.abstract}</Typography>
                     <Box  textAlign="center" sx={{mt: {xs: 0, lg: 7, xl: 12}}}>
-                        <Button variant="outlined">Читати далі</Button>
+                        <Button variant="outlined" href={`/team/${card.id}`}>Читати далі</Button>
                     </Box>
                 </Box>
             </Grid>
