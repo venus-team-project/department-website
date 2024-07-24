@@ -3,7 +3,7 @@ import { Montserrat } from 'next/font/google'
 import { createTheme } from '@mui/material/styles'
 
 const montserrat = Montserrat({
-    weight: ['300', '400', '500', '700'],
+    weight: ['300', '400', '500', '700', '800', '900'],
     subsets: ['cyrillic'],
     display: 'swap',
 })
@@ -17,6 +17,12 @@ const theme = createTheme({
             extraLight: '#BAF6BD',
             dark: '#2E7D32',
         },
+        admin: {
+            red: '#E90D0D',
+            grey: '#546E7A',
+            yellow: '#FFFF00',
+        },
+        black: '#202020',
     },
 
     typography: {
