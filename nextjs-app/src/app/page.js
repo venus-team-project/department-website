@@ -75,7 +75,7 @@ export default function Home() {
                     fontSize: 42,
                 }}
             >
-                <Container maxWidth="xl" sx={{ mt: { xs: 9, md: 12 } }}>
+                <Container maxWidth="lg">
                     <Grid
                         container
                         component="section"

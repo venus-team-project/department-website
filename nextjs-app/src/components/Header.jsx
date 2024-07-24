@@ -20,7 +20,7 @@ import {
 } from '@mui/material'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { cloneElement, useState } from 'react'
+import { cloneElement, useEffect, useRef, useState } from 'react'
 
 function ElevationScroll(props) {
     const { children, window, color } = props
@@ -46,6 +46,8 @@ function ElevationScroll(props) {
 export default function Header() {
     const [open, setOpen] = useState(false)
     const path = usePathname()
+    const appBarRef = useRef(null)
+    const [appBarHeight, setAppBarHeight] = useState(0)
 
     const isActive = (url) => {
         return url === path
@@ -67,10 +69,24 @@ export default function Header() {
         { text: 'Контакти', url: '/contacts' },
     ]
 
+    useEffect(() => {
+        const updateAppBarHeight = () => {
+            if (appBarRef.current) {
+                setAppBarHeight(appBarRef.current.clientHeight)
+            }
+        }
+
+        updateAppBarHeight()
+        window.addEventListener('resize', updateAppBarHeight)
+        return () => {
+            window.removeEventListener('resize', updateAppBarHeight)
+        }
+    }, [appBarRef.current])
+
     return (
         <Box component="header">
             <ElevationScroll color="transparent">
-                <AppBar color="transparent" elevation={0}>
+                <AppBar color="transparent" elevation={0} ref={appBarRef}>
                     <Container maxWidth="xl">
                         <Toolbar disableGutters sx={{ py: 1 }}>
                             <Grid container alignItems="center">
@@ -183,6 +199,7 @@ export default function Header() {
                     </Container>
                 </AppBar>
             </ElevationScroll>
+            <Box sx={{ height: appBarHeight }} />
         </Box>
     )
 }
