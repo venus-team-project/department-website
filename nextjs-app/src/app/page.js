@@ -75,12 +75,11 @@ export default function Home() {
                     fontSize: 42,
                 }}
             >
-                <Container maxWidth="xl">
+                <Container maxWidth="xl" sx={{ mt: { xs: 9, md: 12 } }}>
                     <Grid
                         container
                         component="section"
                         spacing={3}
-                        sx={{ mt: { xs: 9, md: 12 } }}
                         alignItems="stretch"
                     >
                         <Grid

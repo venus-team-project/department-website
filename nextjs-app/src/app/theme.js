@@ -18,6 +18,18 @@ const theme = createTheme({
             dark: '#2E7D32',
         },
     },
+    components: {
+        MuiButton: {
+            styleOverrides: {
+                outlinedPrimary: {
+                    color: '#000000DE',
+                },
+                textPrimary: {
+                    color: '#000000DE',
+                },
+            },
+        },
+    },
 
     typography: {
         fontFamily: montserrat.style.fontFamily,
