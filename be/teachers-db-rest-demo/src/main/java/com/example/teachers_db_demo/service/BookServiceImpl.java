@@ -26,4 +26,21 @@ public class BookServiceImpl implements BookService {
     public Optional<Book> findBook(Long id) {
         return bookRepository.findById(id);
     }
+    @Override
+    public void savePdf(Long id, MultipartFile file) throws IOException {
+        Book book = bookRepository.findById(id).orElseThrow(RuntimeException::new);
+
+        // Зберігаємо файл на сервері
+        String filename = file.getOriginalFilename();
+        Path filePath = Paths.get(uploadDir, filename);
+        Files.write(filePath, file.getBytes());
+
+        // Зберігаємо URL посилання на файл в базу даних
+        book.setPdfUrl(filePath.toString());
+        bookRepository.save(book);
+    }
+
+    @Override
+    public void deleteBook(Long id) {
+        bookRepository.deleteById(id);
 }
