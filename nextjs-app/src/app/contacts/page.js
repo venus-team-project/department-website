@@ -2,7 +2,6 @@
 import Background from '@/components/Background'
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
-// import FormGroup from '@mui/material/FormGroup
 import {
     Input,
     TextField,
@@ -17,8 +16,7 @@ import {
 } from '@mui/material'
 import { useState, useRef } from 'react'
 
-const ValidatedTextField = ({ validator, onChange }) => {
-    const [value, setValue] = useState('')
+const ValidatedTextField = ({ name, validator, onChange, value, setValue }) => {
     const [error, setError] = useState(false)
     const handleChange = (e) => {
         const newValue = e.target.value
@@ -29,6 +27,7 @@ const ValidatedTextField = ({ validator, onChange }) => {
     }
     return (
         <TextField
+            name={name}
             value={value}
             onChange={handleChange}
             error={!!error}
@@ -37,11 +36,16 @@ const ValidatedTextField = ({ validator, onChange }) => {
     )
 }
 
-const MessageValidatedTextField = ({ validator, onChange }) => {
-    const [value, setValue] = useState('')
+const MessageValidatedTextField = ({
+    name,
+    validator,
+    onChange,
+    value,
+    setValue,
+}) => {
     const [error, setError] = useState(false)
     const maxChars = 120
-    const remainingChars = maxChars - value.length
+    const remainingChars = value ? maxChars - value.length : maxChars
 
     const handleChange = (e) => {
         const newValue = e.target.value
@@ -53,6 +57,7 @@ const MessageValidatedTextField = ({ validator, onChange }) => {
 
     return (
         <TextField
+            name={name}
             value={value}
             onChange={handleChange}
             error={!!error}
@@ -61,6 +66,7 @@ const MessageValidatedTextField = ({ validator, onChange }) => {
             minRows={4}
             maxRows={10}
             multiline
+            variant="outlined"
         />
     )
 }
@@ -69,7 +75,7 @@ const nameValidator = (value) => {
     if (value.length < 2)
         return "Ім'я повинно бути довжиною не менше 2-х символів"
     if (value.length > 20) return "Ім'я повинно бути не довше 20-ти символів"
-    if (!/^[a-zA-Z ]+$/.test(value))
+    if (!/^[a-zA-Zа-яА-ЯіїєґІЇЄҐЁё ]+$/.test(value))
         return "Ім'я повинно містити тільки символи та пробіли"
     return false
 }
@@ -89,15 +95,32 @@ const messageValidator = (value) => {
     return false
 }
 
+
 const Form = () => {
     const formValid = useRef({ name: false, email: false, message: false })
+    const [formValues, setFormValues] = useState({
+        name: '',
+        email: '',
+        adress: '',
+    })
+
+    let ifFormisValid = Object.values(formValid.current).every((isValid) => isValid)
 
     const handleSubmit = (e) => {
         e.preventDefault()
         if (Object.values(formValid.current).every((isValid) => isValid)) {
+
+            setFormValues({
+                name: '',
+                email: '',
+                message: '',
+            })
+
+            formValid.current = { name: false, email: false, message: false }
+
             alert('Повідомлення відправлено!')
         } else {
-            alert('Не валідна форма!')
+            alert('Невалідна форма!')
         }
     }
 
@@ -117,18 +140,34 @@ const Form = () => {
                         <Box display="flex" flexDirection="column">
                             <FormLabel required={true}>Ім&apos;я</FormLabel>
                             <ValidatedTextField
+                                name="name"
                                 validator={nameValidator}
                                 onChange={(isValid) =>
                                     (formValid.current.name = isValid)
+                                }
+                                value={formValues.name}
+                                setValue={(value) =>
+                                    setFormValues({
+                                        ...formValues,
+                                        name: value,
+                                    })
                                 }
                             />
                         </Box>
                         <Box display="flex" flexDirection="column">
                             <FormLabel required={true}>Email</FormLabel>
                             <ValidatedTextField
+                                name="email"
                                 validator={emailValidator}
                                 onChange={(isValid) =>
                                     (formValid.current.email = isValid)
+                                }
+                                value={formValues.email}
+                                setValue={(value) =>
+                                    setFormValues({
+                                        ...formValues,
+                                        email: value,
+                                    })
                                 }
                             />
                         </Box>
@@ -136,14 +175,24 @@ const Form = () => {
                     <Box display="flex" flexDirection="column">
                         <FormLabel required={true}>Повідомлення</FormLabel>
                         <MessageValidatedTextField
+                            name="message"
                             validator={messageValidator}
                             onChange={(isValid) =>
                                 (formValid.current.message = isValid)
                             }
+                            value={formValues.message}
+                            setValue={(value) =>
+                                setFormValues({ ...formValues, message: value })
+                            }
                         />
                     </Box>
                     <Box maxWidth={200}>
-                        <Button fullWidth variant="contained" type="submit">
+                        <Button
+                            {...(ifFormisValid ? {disabled: false} : {disabled: true})}
+                            fullWidth
+                            variant="contained"
+                            type="submit"
+                        >
                             Надіслати
                         </Button>
                     </Box>
