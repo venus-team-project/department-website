@@ -1,3 +1,4 @@
+'use client'
 import Background from '@/components/Background'
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
@@ -12,7 +13,182 @@ import {
     Grid,
     Container,
     Typography,
+    Link,
 } from '@mui/material'
+import { useState, useRef } from 'react'
+
+const ValidatedTextField = ({ validator, onChange }) => {
+    const [value, setValue] = useState('')
+    const [error, setError] = useState(false)
+    const handleChange = (e) => {
+        const newValue = e.target.value
+        const errorMessage = validator(newValue)
+        setValue(newValue)
+        setError(errorMessage)
+        onChange(!errorMessage)
+    }
+    return (
+        <TextField
+            value={value}
+            onChange={handleChange}
+            error={!!error}
+            helperText={error}
+        />
+    )
+}
+
+const MessageValidatedTextField = ({ validator, onChange }) => {
+    const [value, setValue] = useState('')
+    const [error, setError] = useState(false)
+    const maxChars = 120
+    const remainingChars = maxChars - value.length
+
+    const handleChange = (e) => {
+        const newValue = e.target.value
+        const errorMessage = validator(newValue)
+        setValue(newValue)
+        setError(errorMessage)
+        onChange(!errorMessage)
+    }
+
+    return (
+        <TextField
+            value={value}
+            onChange={handleChange}
+            error={!!error}
+            helperText={error ? error : `${remainingChars}/${maxChars}`}
+            inputProps={{ maxLength: maxChars }}
+            minRows={4}
+            maxRows={10}
+            multiline
+        />
+    )
+}
+
+const nameValidator = (value) => {
+    if (value.length < 2)
+        return "Ім'я повинно бути довжиною не менше 2-х символів"
+    if (value.length > 20) return "Ім'я повинно бути не довше 20-ти символів"
+    if (!/^[a-zA-Z ]+$/.test(value))
+        return "Ім'я повинно містити тільки символи та пробіли"
+    return false
+}
+
+const emailValidator = (value) => {
+    if (!/^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+$/.test(value))
+        return 'Некоректна email адреса'
+    return false
+}
+
+const messageValidator = (value) => {
+    const maxChars = 120
+    const remainingChars = maxChars - value.length
+
+    if (!remainingChars) return 'Ви використали усі символи!'
+    else if (!value.length) return 'Ви нічого не ввели'
+    return false
+}
+
+const Form = () => {
+    const formValid = useRef({ name: false, email: false, message: false })
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        if (Object.values(formValid.current).every((isValid) => isValid)) {
+            alert('Повідомлення відправлено!')
+        } else {
+            alert('Не валідна форма!')
+        }
+    }
+
+    return (
+        <>
+            <Typography component="h3" variant="h3" textAlign="center">
+                Написати нам
+            </Typography>
+            <Box component="form" onSubmit={handleSubmit} noValidate>
+                <Box display="flex" flexDirection="column" gap={3}>
+                    <Box
+                        display="flex"
+                        flexDirection="column"
+                        sx={{ maxWidth: { sm: '100%', md: '70%', lg: '50%' } }}
+                        gap={3}
+                    >
+                        <Box display="flex" flexDirection="column">
+                            <FormLabel required={true}>Ім&apos;я</FormLabel>
+                            <ValidatedTextField
+                                validator={nameValidator}
+                                onChange={(isValid) =>
+                                    (formValid.current.name = isValid)
+                                }
+                            />
+                        </Box>
+                        <Box display="flex" flexDirection="column">
+                            <FormLabel required={true}>Email</FormLabel>
+                            <ValidatedTextField
+                                validator={emailValidator}
+                                onChange={(isValid) =>
+                                    (formValid.current.email = isValid)
+                                }
+                            />
+                        </Box>
+                    </Box>
+                    <Box display="flex" flexDirection="column">
+                        <FormLabel required={true}>Повідомлення</FormLabel>
+                        <MessageValidatedTextField
+                            validator={messageValidator}
+                            onChange={(isValid) =>
+                                (formValid.current.message = isValid)
+                            }
+                        />
+                    </Box>
+                    <Box maxWidth={200}>
+                        <Button fullWidth variant="contained" type="submit">
+                            Надіслати
+                        </Button>
+                    </Box>
+                </Box>
+            </Box>
+        </>
+    )
+}
+
+const ContactsGrid = () => {
+    return (
+        <>
+            <Typography component="h2" variant="h3">
+                Контакти
+            </Typography>
+            <Box>
+                <Typography fontSize="24px">Адреса:</Typography>
+                <Typography>
+                    Бориславський лісовий університет, 21000, м. Борислав, вул.
+                    Незалежності 40
+                </Typography>
+            </Box>
+            <Box>
+                <Typography fontSize="24px">Телефон:</Typography>
+                <Link href="tel:+380 50 123 4567">
+                    <Typography>+380 50 123 4567</Typography>
+                </Link>
+            </Box>
+        </>
+    )
+}
+
+const GoogleMapFrame = () => {
+    return (
+        <>
+            <div style={{ width: '100%' }}>
+                <iframe
+                    width="100%"
+                    height="600"
+                    src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Boryslav,%20Lviv%20Oblast,%2082300+(%D0%A1%D0%A8%20%E2%84%967)&amp;t=&amp;z=16&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+                ></iframe>
+            </div>
+        </>
+    )
+}
 
 export default function Contacts() {
     return (
@@ -31,49 +207,30 @@ export default function Contacts() {
                         container
                         component="section"
                         spacing={3}
-                        sx={{ mt: { xs: 9, md: 12 } }}
+                        sx={{ my: { xs: 1, md: 3 } }}
                         alignItems="strech"
                     >
-                        <Grid item md={4} display="flex" flexDirection="column">
-                            <Typography component="h2" variant="h3">
-                                Контакти
-                            </Typography>
-                            <Typography>Адреса:</Typography>
-                            <Typography>
-                                Бориславський лісовий університет, 21000, м.
-                                Борислав, вул. Незалежності 40
-                            </Typography>
-                            <Typography>Телефон</Typography>
-                            <Typography>+380 50 123 4567</Typography>
+                        <Grid
+                            item
+                            md={4}
+                            xs={12}
+                            display="flex"
+                            flexDirection="column"
+                            gap={8}
+                        >
+                            <ContactsGrid />
                         </Grid>
-                        <Grid item md={8} display="flex" flexDirection="column">
-                            <FormControl>
-                                <FormLabel required={true}>Ім&apos;я</FormLabel>
-                                <TextField></TextField>
-                                <FormLabel required={true}>Email</FormLabel>
-                                <TextField></TextField>
-                                <FormLabel required={true}>
-                                    Повідомлення
-                                </FormLabel>
-                                <TextField
-                                    required={true}
-                                    multiline
-                                    error
-                                    helperText="Provide valid values!"
-                                ></TextField>
-                                <Button>Submit</Button>
-                            </FormControl>
+                        <Grid
+                            item
+                            md={8}
+                            xs={12}
+                            display="flex"
+                            flexDirection="column"
+                        >
+                            <Form />
                         </Grid>
                     </Grid>
-                    <div style={{width: "100%"}}>
-                        <iframe
-                            width="100%"
-                            height="600"
-                            frameborder="0"
-                            src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=%D0%9A%D0%B8%D1%97%D0%B2%D1%81%D1%8C%D0%BA%D0%B8%D0%B9%20%D0%9F%D0%BE%D0%BB%D1%96%D1%82%D0%B5%D1%85%D0%BD%D1%96%D1%87%D0%BD%D0%B8%D0%B9%20%D0%86%D0%BD%D1%81%D1%82%D0%B8%D1%82%D1%83+()&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
-                        >
-                        </iframe>
-                    </div>
+                    <GoogleMapFrame />
                 </Container>
             </Box>
             <Footer />
