@@ -69,7 +69,7 @@ const nameValidator = (value) => {
     if (value.length < 2)
         return "Ім'я повинно бути довжиною не менше 2-х символів"
     if (value.length > 20) return "Ім'я повинно бути не довше 20-ти символів"
-    if (!/^[a-zA-Z ]+$/.test(value))
+    if (!/^[a-zA-Zа-яА-ЯіїєґІЇЄҐЁё ]+$/.test(value))
         return "Ім'я повинно містити тільки символи та пробіли"
     return false
 }
