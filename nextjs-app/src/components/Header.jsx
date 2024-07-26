@@ -20,6 +20,7 @@ import {
 } from '@mui/material'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 import { cloneElement, useEffect, useRef, useState } from 'react'
 
 function ElevationScroll(props) {
@@ -48,6 +49,7 @@ export default function Header() {
     const path = usePathname()
     const appBarRef = useRef(null)
     const [appBarHeight, setAppBarHeight] = useState(0)
+    const session = useSession()
 
     const isActive = (url) => {
         return url === path
@@ -160,9 +162,13 @@ export default function Header() {
                                     <Button
                                         variant="contained"
                                         LinkComponent={Link}
-                                        href="#"
+                                        href={
+                                            session?.status === 'authenticated'
+                                                ? '/admin'
+                                                : 'api/auth/signin'
+                                        }
                                     >
-                                        Вхід
+                                        {session?.data ? 'Кабінет' : 'Вхід'}
                                     </Button>
                                     <IconButton
                                         onClick={handleOpen}
