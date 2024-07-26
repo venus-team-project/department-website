@@ -15,14 +15,39 @@ import {
     Link,
 } from '@mui/material'
 import { useState, useRef } from 'react'
+import { VerifaliaRestClient } from 'verifalia'
 
-const ValidatedTextField = ({ name, validator, onChange, value, setValue }) => {
+const verifalia = new VerifaliaRestClient({
+    username: 'markisses',
+    password: 'Z6DGwNZZB8KY4d32cs',
+})
+
+const NameValidatedTextField = ({
+    name,
+    validator,
+    onChange,
+    value,
+    setValue,
+    minChars,
+    maxChars
+}) => {
     const [error, setError] = useState(false)
+
     const handleChange = (e) => {
         const newValue = e.target.value
-        const errorMessage = validator(newValue)
-        setValue(newValue)
-        setError(errorMessage)
+        const errorMessage = validator(newValue, minChars, maxChars)
+
+        if (errorMessage === 'SymbolError') {
+            setError('Некоректні символи')
+        } else if (errorMessage === 'MinLengthError') {
+            setError("Ім'я повинно мати довжину не менше 2-х символів")
+            setValue(newValue)
+        } else if (errorMessage === 'MaxLengthError') {
+            setError("Ім'я повинно мати довжину не більше 50-ти символів")
+        } else {
+            setError(errorMessage)
+            setValue(newValue)
+        }
         onChange(!errorMessage)
     }
     return (
@@ -36,22 +61,83 @@ const ValidatedTextField = ({ name, validator, onChange, value, setValue }) => {
     )
 }
 
+const EmailValidatedTextField = ({
+    name,
+    validator,
+    onChange,
+    value,
+    setValue,
+    emailValidity,
+    setEmailValid,
+    minChars,
+    maxChars
+}) => {
+    const [error, setError] = useState(false)
+
+    const handleChange = (e) => {
+        const newValue = e.target.value
+        const errorMessage = validator(newValue, minChars, maxChars)
+
+        if (errorMessage === 'SymbolError') {
+            setError('Уведіть правильну адресу електронної пошти')
+            setValue(newValue)
+        } else if (errorMessage === 'MinLengthError') {
+            setError('Email адреса повинна мати довжину не менше 5-ти символів')
+            setValue(newValue)
+        } else if (errorMessage === 'MaxLengthError') {
+            setError(
+                'Email адреса повинна мати довжину не більше 100-та символів'
+            )
+        } else {
+            setError(errorMessage)
+            setValue(newValue)
+        }
+
+        onChange(!errorMessage)
+        setEmailValid(true)
+    }
+    return (
+        <TextField
+            name={name}
+            value={value}
+            onChange={handleChange}
+            error={!!error || (emailValidity ? false : true)}
+            helperText={
+                error ||
+                (emailValidity
+                    ? ''
+                    : 'Уведіть правильну адресу електронної пошти')
+            }
+        />
+    )
+}
+
 const MessageValidatedTextField = ({
     name,
     validator,
     onChange,
     value,
     setValue,
+    minChars,
+    maxChars
 }) => {
     const [error, setError] = useState(false)
-    const maxChars = 120
     const remainingChars = value ? maxChars - value.length : maxChars
 
     const handleChange = (e) => {
         const newValue = e.target.value
-        const errorMessage = validator(newValue)
-        setValue(newValue)
-        setError(errorMessage)
+        const errorMessage = validator(newValue, minChars, maxChars)
+        if (errorMessage === 'SymbolError') {
+            setError('Некоректні символи')
+        } else if (errorMessage === 'MinLengthError') {
+            setError(`Повідомлення повинно мати довжину не менше ${minChars}-ти символів`)
+            setValue(newValue)
+        } else if (errorMessage === 'MaxLengthError') {
+            setError(`Повідомлення повинно мати довжину не більше ${maxChars}-ти символів`)
+        } else {
+            setError(errorMessage)
+            setValue(newValue)
+        }
         onChange(!errorMessage)
     }
 
@@ -62,7 +148,6 @@ const MessageValidatedTextField = ({
             onChange={handleChange}
             error={!!error}
             helperText={error ? error : `${remainingChars}/${maxChars}`}
-            inputProps={{ maxLength: maxChars }}
             minRows={4}
             maxRows={10}
             multiline
@@ -71,30 +156,29 @@ const MessageValidatedTextField = ({
     )
 }
 
-const nameValidator = (value) => {
-    if (value.length < 2)
-        return "Ім'я повинно бути довжиною не менше 2-х символів"
-    if (value.length > 20) return "Ім'я повинно бути не довше 20-ти символів"
-    if (!/^[a-zA-Zа-яА-ЯіїєґІЇЄҐЁё ]+$/.test(value))
-        return "Ім'я повинно містити тільки символи та пробіли"
+const nameValidator = (value, minChars, maxChars) => {
+    if (value.length < minChars) return 'MinLengthError'
+    if (value.length > maxChars) return 'MaxLengthError'
+    if (!/^[a-zA-Zа-яА-ЯіїєґІЇЄҐЁё\-'0-9, ]+$/.test(value)) return 'SymbolError'
     return false
 }
 
-const emailValidator = (value) => {
-    if (!/^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+$/.test(value))
-        return 'Некоректна email адреса'
+const emailValidator = (value, minChars, maxChars) => {
+    if (value.length < minChars) return 'MinLengthError'
+    if (value.length > maxChars) return 'MaxLengthError'
+    if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value))
+        return 'SymbolError'
     return false
 }
 
-const messageValidator = (value) => {
-    const maxChars = 120
-    const remainingChars = maxChars - value.length
+const messageValidator = (value, minChars, maxChars) => {
 
-    if (!remainingChars) return 'Ви використали усі символи!'
-    else if (!value.length) return 'Ви нічого не ввели'
+    if (value.length < minChars) return 'MinLengthError'
+    if (value.length > maxChars) return 'MaxLengthError'
+    if (!/^[a-zA-Zа-яА-ЯіїєґІЇЄҐЁё'0-9,:.;()?\p{Pd} ]+$/u.test(value))
+        return 'SymbolError'
     return false
 }
-
 
 const Form = () => {
     const formValid = useRef({ name: false, email: false, message: false })
@@ -103,22 +187,41 @@ const Form = () => {
         email: '',
         adress: '',
     })
+    const [emailValid, setEmailValid] = useState(true)
 
-    let ifFormisValid = Object.values(formValid.current).every((isValid) => isValid)
+    let ifFormisValid = Object.values(formValid.current).every(
+        (isValid) => isValid
+    )
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        if (Object.values(formValid.current).every((isValid) => isValid)) {
 
+        try {
+            const response = await verifalia.emailValidations.submit(
+                formValues.email
+            )
+
+            if (response.entries[0].status !== 'Success') {
+                setEmailValid(false)
+                formValid.current.email = false // Email невалідний
+                return
+            }
+        } catch (error) {
+            console.error('Ошибка при проверке email:', error)
+            setEmailValid(false)
+            formValid.current.email = false // Email невалідний
+            return
+        }
+
+        if (Object.values(formValid.current).every((isValid) => isValid)) {
             setFormValues({
                 name: '',
                 email: '',
                 message: '',
             })
-
             formValid.current = { name: false, email: false, message: false }
-
-            alert('Повідомлення відправлено!')
+            setEmailValid(true)
+            alert('Форма успішно відправлена!')
         } else {
             alert('Невалідна форма!')
         }
@@ -139,7 +242,7 @@ const Form = () => {
                     >
                         <Box display="flex" flexDirection="column">
                             <FormLabel required={true}>Ім&apos;я</FormLabel>
-                            <ValidatedTextField
+                            <NameValidatedTextField
                                 name="name"
                                 validator={nameValidator}
                                 onChange={(isValid) =>
@@ -152,11 +255,13 @@ const Form = () => {
                                         name: value,
                                     })
                                 }
+                                minChars={2}
+                                maxChars={50}
                             />
                         </Box>
                         <Box display="flex" flexDirection="column">
                             <FormLabel required={true}>Email</FormLabel>
-                            <ValidatedTextField
+                            <EmailValidatedTextField
                                 name="email"
                                 validator={emailValidator}
                                 onChange={(isValid) =>
@@ -169,6 +274,10 @@ const Form = () => {
                                         email: value,
                                     })
                                 }
+                                emailValidity={emailValid}
+                                setEmailValid={setEmailValid}
+                                minChars={5}
+                                maxChars={100}
                             />
                         </Box>
                     </Box>
@@ -184,11 +293,15 @@ const Form = () => {
                             setValue={(value) =>
                                 setFormValues({ ...formValues, message: value })
                             }
+                            minChars={10}
+                            maxChars={2000}
                         />
                     </Box>
                     <Box maxWidth={200}>
                         <Button
-                            {...(ifFormisValid ? {disabled: false} : {disabled: true})}
+                            {...(ifFormisValid
+                                ? { disabled: false }
+                                : { disabled: true })}
                             fullWidth
                             variant="contained"
                             type="submit"

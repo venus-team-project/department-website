@@ -22,7 +22,8 @@
         "next": "14.2.5",
         "normalize.css": "^8.0.1",
         "react": "^18",
-        "react-dom": "^18"
+        "react-dom": "^18",
+        "verifalia": "^5.0.0"
     },
     "devDependencies": {
         "eslint": "^8",
