@@ -1,51 +1,51 @@
-name: Deploy FE to GCP
+# name: Deploy FE to GCP
 
-on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'nextjs-app/**'
-      
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+# on:
+#   push:
+#     branches:
+#       - main
+#     paths:
+#       - 'nextjs-app/**'
 
-      - name: SSH to VM
-        uses: appleboy/ssh-action@master
-        with:
-          host: 35.208.11.42
-          username: venus
-          key: ${{ secrets.GCP_SSH_KEY }}
-          port: 22
-          script: |
-            export NVM_DIR="$HOME/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-            
-            # Go to app folder
-            cd department-website/nextjs-app
+# jobs:
+#   build-and-deploy:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v3
 
-            # Stop pm2 process
-            pm2 stop 0
-            
-            # Go to repo folder
-            cd ..
-            
-            # Pull changes from remote origin
-            git pull
-            
-            # Go to app folder
-            cd nextjs-app
-            
-            # Install dependency
-            npm install
-            
-            # Rebuild app
-            npm run build
-            
-            # Restart pm2 process
-            pm2 restart 0
+#       - name: SSH to VM
+#         uses: appleboy/ssh-action@master
+#         with:
+#           host: 35.208.11.42
+#           username: venus
+#           key: ${{ secrets.GCP_SSH_KEY }}
+#           port: 22
+#           script: |
+#             export NVM_DIR="$HOME/.nvm"
+#             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+#             [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+#             # Go to app folder
+#             cd department-website/nextjs-app
+
+#             # Stop pm2 process
+#             pm2 stop 0
+
+#             # Go to repo folder
+#             cd ..
+
+#             # Pull changes from remote origin
+#             git pull
+
+#             # Go to app folder
+#             cd nextjs-app
+
+#             # Install dependency
+#             npm install
+
+#             # Rebuild app
+#             npm run build
+
+#             # Restart pm2 process
+#             pm2 restart 0
