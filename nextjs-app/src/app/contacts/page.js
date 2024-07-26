@@ -15,12 +15,7 @@ import {
     Link,
 } from '@mui/material'
 import { useState, useRef } from 'react'
-import { VerifaliaRestClient } from 'verifalia'
-
-const verifalia = new VerifaliaRestClient({
-    username: 'markisses',
-    password: 'Z6DGwNZZB8KY4d32cs',
-})
+import EmailVerifier from '@/components/EmailVerifier'
 
 const NameValidatedTextField = ({
     name,
@@ -175,7 +170,7 @@ const messageValidator = (value, minChars, maxChars) => {
 
     if (value.length < minChars) return 'MinLengthError'
     if (value.length > maxChars) return 'MaxLengthError'
-    if (!/^[a-zA-Zа-яА-ЯіїєґІЇЄҐЁё'0-9,:.;()?\p{Pd} ]+$/u.test(value))
+    if (!/^[a-zA-Zа-яА-ЯіїєґІЇЄҐЁё'0-9,:.;()?\p{Pd}\n\r! ]+$/u.test(value))
         return 'SymbolError'
     return false
 }
@@ -196,20 +191,11 @@ const Form = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        try {
-            const response = await verifalia.emailValidations.submit(
-                formValues.email
-            )
+        const emailExists = await EmailVerifier({ email: formValues.email })
 
-            if (response.entries[0].status !== 'Success') {
-                setEmailValid(false)
-                formValid.current.email = false // Email невалідний
-                return
-            }
-        } catch (error) {
-            console.error('Ошибка при проверке email:', error)
+        if (!emailExists) {
             setEmailValid(false)
-            formValid.current.email = false // Email невалідний
+            formValid.current.email = false
             return
         }
 
