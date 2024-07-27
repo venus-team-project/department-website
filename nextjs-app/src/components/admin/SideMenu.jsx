@@ -6,35 +6,50 @@ import {
     List,
     ListItem,
     ListItemText,
+    ListItemButton,
     Toolbar,
     Typography,
     Avatar,
 } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import theme from '../../app/theme.js'
+import Link from 'next/link'
 
 const menuItems = [
-    { text: 'ГОЛОВНА' },
-    { text: 'ПРО КАФЕДРУ' },
-    { text: 'НАУКОВА РОБОТА' },
-    { text: 'НОВИНИ' },
-    { text: 'КОНТАКТИ' },
-    { text: 'ПРОФІЛЬ' },
-    { text: 'ВИЙТИ' },
+    { text: 'ГОЛОВНА', url: '/admin/' },
+    { text: 'ПРО КАФЕДРУ', url: '/admin/team' },
+    { text: 'НАУКОВА РОБОТА', url: '/admin/science' },
+    { text: 'НОВИНИ', url: '/admin/news' },
+    { text: 'КОНТАКТИ', url: '/admin/contacts' },
+    { text: 'ПРОФІЛЬ', url: '/admin/profile' },
+    { text: 'ВИЙТИ', url: '/admin/logout' },
 ]
 
 const SideMenu = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
     const drawer = (
         <div>
             <Toolbar>
-                <Avatar
-                    src="/logo.svg"
-                    sx={{
-                        mt: '1rem',
-                        width: { xs: 120, md: 192 },
-                        height: { xs: 120, md: 192 },
-                    }}
-                />
+                {/*<Avatar*/}
+                {/*    src="/logo.svg"*/}
+                {/*    sx={{*/}
+                {/*        mt: '1rem',*/}
+                {/*        width: { xs: 120, md: 192 },*/}
+                {/*        height: { xs: 120, md: 192 },*/}
+                {/*    }}*/}
+                {/*/>*/}
+                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                    <Link href="/" passHref>
+                        <Avatar
+                            src="/logo.svg"
+                            sx={{
+                                mt: '1rem',
+                                width: { xs: 120, md: 192 },
+                                height: { xs: 120, md: 192 },
+                                cursor: 'pointer', // Добавляем курсор указателя, чтобы было понятно, что это ссылка
+                            }}
+                        />
+                    </Link>
+                </Box>
                 {isMobile && (
                     <IconButton
                         onClick={handleDrawerToggle}
@@ -52,59 +67,61 @@ const SideMenu = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
             <Box sx={{ overflow: 'auto' }}>
                 <List>
                     {menuItems.map((item) => (
-                        <ListItem
-                            button
-                            key={item.text}
-                            sx={{
-                                padding: '20px 20px',
-                                position: 'relative',
-                                cursor: 'pointer',
-                                '&:hover': {
-                                    backgroundColor: theme.palette.primary.main,
-                                    color: theme.palette.admin.yellow,
-                                },
-                                '&:hover .MuiTypography-root': {
-                                    color: theme.palette.admin.yellow,
-                                },
-                                '&:before, &:after': {
-                                    content: '""',
-                                    position: 'absolute',
-                                    left: 0,
-                                    right: 0,
-                                    height: '4px',
-                                    backgroundColor: theme.palette.admin.yellow,
-                                    transform: 'scaleX(0)',
-                                    transition: 'transform 0.3s ease-in-out',
-                                },
-                                '&:before': {
-                                    top: 0,
-                                    transformOrigin: 'left',
-                                },
-                                '&:after': {
-                                    bottom: 0,
-                                    transformOrigin: 'right',
-                                },
-                                '&:hover:before': {
-                                    transform: 'scaleX(1)',
-                                },
-                                '&:hover:after': {
-                                    transform: 'scaleX(1)',
-                                },
-                            }}
-                        >
-                            <ListItemText
-                                primary={
-                                    <Typography
-                                        sx={{
-                                            color: 'white',
-                                            fontWeight: 'bold',
-                                            fontSize: '16px',
-                                        }}
-                                    >
-                                        {item.text}
-                                    </Typography>
-                                }
-                            />
+                        <ListItem key={item.text} disablePadding>
+                            <ListItemButton
+                                component={Link}
+                                href={item.url}
+                                sx={{
+                                    padding: '20px 20px',
+                                    position: 'relative',
+                                    cursor: 'pointer',
+                                    '&:hover': {
+                                        backgroundColor: theme.palette.primary.main,
+                                        color: theme.palette.admin.yellow,
+                                    },
+                                    '&:hover .MuiTypography-root': {
+                                        color: theme.palette.admin.yellow,
+                                    },
+                                    '&:before, &:after': {
+                                        content: '""',
+                                        position: 'absolute',
+                                        left: 0,
+                                        right: 0,
+                                        height: '4px',
+                                        backgroundColor: theme.palette.admin.yellow,
+                                        transform: 'scaleX(0)',
+                                        transition: 'transform 0.3s ease-in-out',
+                                    },
+                                    '&:before': {
+                                        top: 0,
+                                        transformOrigin: 'left',
+                                    },
+                                    '&:after': {
+                                        bottom: 0,
+                                        transformOrigin: 'right',
+                                    },
+                                    '&:hover:before': {
+                                        transform: 'scaleX(1)',
+                                    },
+                                    '&:hover:after': {
+                                        transform: 'scaleX(1)',
+                                    },
+                                }}
+                            >
+                                <ListItemText
+                                    primary={
+                                        <Typography
+                                            sx={{
+                                                color: 'white',
+                                                fontWeight: 'bold',
+                                                fontSize: '16px',
+                                            }}
+                                        >
+                                            {item.text}
+                                        </Typography>
+                                    }
+                                />
+                            </ListItemButton>
                         </ListItem>
                     ))}
                 </List>
