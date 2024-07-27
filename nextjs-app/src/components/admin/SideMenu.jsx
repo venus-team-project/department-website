@@ -14,6 +14,7 @@ import {
 import CloseIcon from '@mui/icons-material/Close'
 import theme from '../../app/theme.js'
 import Link from 'next/link'
+import { signOut } from 'next-auth/react'
 
 const menuItems = [
     { text: 'ГОЛОВНА', url: '/admin/' },
@@ -70,13 +71,19 @@ const SideMenu = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
                         <ListItem key={item.text} disablePadding>
                             <ListItemButton
                                 component={Link}
-                                href={item.url}
+                                href={
+                                    item.text !== 'ВИЙТИ'
+                                        ? item.url
+                                        : '/admin/#'
+                                }
+                                onClick={item.text === 'ВИЙТИ' && signOut}
                                 sx={{
                                     padding: '20px 20px',
                                     position: 'relative',
                                     cursor: 'pointer',
                                     '&:hover': {
-                                        backgroundColor: theme.palette.primary.main,
+                                        backgroundColor:
+                                            theme.palette.primary.main,
                                         color: theme.palette.admin.yellow,
                                     },
                                     '&:hover .MuiTypography-root': {
@@ -88,9 +95,11 @@ const SideMenu = ({ mobileOpen, handleDrawerToggle, isMobile }) => {
                                         left: 0,
                                         right: 0,
                                         height: '4px',
-                                        backgroundColor: theme.palette.admin.yellow,
+                                        backgroundColor:
+                                            theme.palette.admin.yellow,
                                         transform: 'scaleX(0)',
-                                        transition: 'transform 0.3s ease-in-out',
+                                        transition:
+                                            'transform 0.3s ease-in-out',
                                     },
                                     '&:before': {
                                         top: 0,

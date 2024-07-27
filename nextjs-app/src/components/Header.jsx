@@ -165,7 +165,7 @@ export default function Header() {
                                         href={
                                             session?.status === 'authenticated'
                                                 ? '/admin'
-                                                : 'api/auth/signin'
+                                                : '/admin/login'
                                         }
                                     >
                                         {session?.data ? 'Кабінет' : 'Вхід'}

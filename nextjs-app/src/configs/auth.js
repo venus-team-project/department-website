@@ -37,7 +37,7 @@ export const authConfig = {
             },
         }),
     ],
-    //   pages: {
-    //     signIn: '/signin'
-    //   }
+    pages: {
+        signIn: '/admin/login',
+    },
 }
