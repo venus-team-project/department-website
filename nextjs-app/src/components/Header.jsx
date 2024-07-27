@@ -160,7 +160,7 @@ export default function Header() {
                                     <Button
                                         variant="contained"
                                         LinkComponent={Link}
-                                        href="#"
+                                        href="/admin"
                                     >
                                         Вхід
                                     </Button>
