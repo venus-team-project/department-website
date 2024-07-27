@@ -45,7 +45,7 @@ export default function SciencePublications() {
         setPage(0)
     }
 
-    const sortedSciencePublications = [...SciencePublications].sort((a, b) => {
+    const sortedSciencePublications = [...publications].sort((a, b) => {
         if (orderBy === 'title') {
             return order === 'asc' ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title)
         } else if (orderBy === 'author') {

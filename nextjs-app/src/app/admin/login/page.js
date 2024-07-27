@@ -8,6 +8,7 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { useTheme } from '@emotion/react'
 import { styled } from '@mui/system'
+import Image from 'next/image';
 
 const StyledContainer = styled(Container)(({ theme }) => ({
     display: 'flex',
@@ -130,8 +131,12 @@ export default function Login() {
                             variant="filled"
                             sx={{ fontWeight: 500 }}
                         >
-                            <img src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg" alt="Google logo"
-                                 style={{ width: '20px', height: '20px' }} />
+                            <Image
+                                src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg"
+                                alt="Google logo"
+                                width={20}
+                                height={20}
+                            />
                             Sign up with Google
                         </GoogleButton>
                     </StyledPaper>
