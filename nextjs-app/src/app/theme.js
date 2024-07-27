@@ -23,6 +23,7 @@ const theme = createTheme({
             yellow: '#FFFF00',
         },
         black: '#202020',
+        white: '#f3f3f3',
     },
     components: {
         MuiButton: {
