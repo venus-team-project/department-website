@@ -80,7 +80,7 @@ const LoginContent = () => {
     const footerRef = useRef(null)
     const [containerMinHeight, setContainerMinHeight] = useState('100vh')
     const searchParams = useSearchParams()
-    const callbackUrl = searchParams.get('callbackUrl') || '/profile'
+    const callbackUrl = searchParams.get('callbackUrl') || '/admin'
     const router = useRouter()
     const session = useSession()
     const [error, setError] = useState(null)
