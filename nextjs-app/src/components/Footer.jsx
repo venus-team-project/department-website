@@ -26,7 +26,7 @@ export default function Footer() {
         <Box component="footer" bgcolor="primary.extraLight" py={2}>
             <Container maxWidth="xl">
                 <Grid container sx={{ pb: 1, alignItems: 'center' }}>
-                    <Grid item xs={12} sm={6} md={4}>
+                    <Grid item xs={6} md={4}>
                         <Typography maxWidth={300} variant="body2">
                             З природою в серці, з технологіями в руках – до
                             нових висот у агроінформаційних технологіях
@@ -49,17 +49,16 @@ export default function Footer() {
 
                     <Grid
                         item
-                        xs={12}
-                        sm={6}
+                        xs={6}
                         md={4}
                         display="flex"
                         justifyContent="center"
                     >
-                        <Image
-                            src="/logo.svg"
+                        <Box
+                            component="img"
                             alt="logo"
-                            width={160}
-                            height={160}
+                            src="/logo.svg"
+                            sx={{ width: { xs: 80, sm: 160 } }}
                         />
                     </Grid>
 

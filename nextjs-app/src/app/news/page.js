@@ -37,7 +37,7 @@ const cards = [
 const NewsCard = (card) => {
     return (
         <>
-            <Grid item xs={4} alignItems="center">
+            <Grid item xs={12} md={4} alignItems="center">
                 <Box
                     width="100%"
                     height="100%"
@@ -47,7 +47,7 @@ const NewsCard = (card) => {
                     sx={{ objectFit: 'cover' }}
                 ></Box>
             </Grid>
-            <Grid item xs={8} display="flex">
+            <Grid item xs={12} md={8} display="flex">
                 <Stack flexGrow={1} spacing={2}>
                     <Typography variant="caption">{card.date}</Typography>
                     <Typography variant="h6" sx={{ flexGrow: 1 }}>

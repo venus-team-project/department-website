@@ -6,6 +6,7 @@ import {
     Button,
     Container,
     Grid,
+    Stack,
     TextField,
     Typography,
 } from '@mui/material'
@@ -20,17 +21,21 @@ const getPublications = async () => {
 const PublicationCard = ({ data }) => {
     return (
         <Grid item xs={12} md={6}>
-            <Typography>
-                Автор -
-                {`${data?.author?.firstName || ''} ${
-                    data?.author?.lastName || ''
-                }`}
-            </Typography>
-            <Typography>{data?.title || ''}</Typography>
-            <Typography>{data?.annotation || ''}</Typography>
-            <Button fullWidth variant="outlined">
-                Читати далі
-            </Button>
+            <Stack spacing={4}>
+                <Typography>
+                    Автор -{' '}
+                    {`${data?.author?.firstName || ''} ${
+                        data?.author?.lastName || ''
+                    }`}
+                </Typography>
+                <Typography variant="h6" align="center">
+                    {data?.title || ''}
+                </Typography>
+                <Typography>{data?.annotation || ''}</Typography>
+                <Button fullWidth variant="outlined">
+                    Читати далі
+                </Button>
+            </Stack>
         </Grid>
     )
 }
@@ -74,15 +79,20 @@ export default async function Science() {
                                 component="img"
                                 src="/science/greeting.png"
                                 maxWidth="100%"
+                                minHeight="340px"
+                                sx={{
+                                    objectFit: 'cover',
+                                    position: 'relative',
+                                }}
                                 borderRadius={5}
                                 border="1px solid black"
                             />
                             <Typography
                                 sx={{
                                     position: 'absolute',
-                                    top: 80,
+                                    top: { xs: 20, sm: 40, md: 80 },
                                     right: 20,
-                                    maxWidth: 490,
+                                    maxWidth: '50%',
                                     textAlign: 'end',
                                 }}
                             >
