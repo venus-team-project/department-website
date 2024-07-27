@@ -15,7 +15,6 @@ import {
     Link,
 } from '@mui/material'
 import { useState, useRef } from 'react'
-import EmailVerifier from '@/components/EmailVerifier'
 
 const NameValidatedTextField = ({
     name,
@@ -24,7 +23,7 @@ const NameValidatedTextField = ({
     value,
     setValue,
     minChars,
-    maxChars
+    maxChars,
 }) => {
     const [error, setError] = useState(false)
 
@@ -65,7 +64,7 @@ const EmailValidatedTextField = ({
     emailValidity,
     setEmailValid,
     minChars,
-    maxChars
+    maxChars,
 }) => {
     const [error, setError] = useState(false)
 
@@ -114,7 +113,7 @@ const MessageValidatedTextField = ({
     value,
     setValue,
     minChars,
-    maxChars
+    maxChars,
 }) => {
     const [error, setError] = useState(false)
     const remainingChars = value ? maxChars - value.length : maxChars
@@ -125,10 +124,14 @@ const MessageValidatedTextField = ({
         if (errorMessage === 'SymbolError') {
             setError('Некоректні символи')
         } else if (errorMessage === 'MinLengthError') {
-            setError(`Повідомлення повинно мати довжину не менше ${minChars}-ти символів`)
+            setError(
+                `Повідомлення повинно мати довжину не менше ${minChars}-ти символів`
+            )
             setValue(newValue)
         } else if (errorMessage === 'MaxLengthError') {
-            setError(`Повідомлення повинно мати довжину не більше ${maxChars}-ти символів`)
+            setError(
+                `Повідомлення повинно мати довжину не більше ${maxChars}-ти символів`
+            )
         } else {
             setError(errorMessage)
             setValue(newValue)
@@ -167,7 +170,6 @@ const emailValidator = (value, minChars, maxChars) => {
 }
 
 const messageValidator = (value, minChars, maxChars) => {
-
     if (value.length < minChars) return 'MinLengthError'
     if (value.length > maxChars) return 'MaxLengthError'
     if (!/^[a-zA-Zа-яА-ЯіїєґІЇЄҐЁё'0-9,:.;()?\p{Pd}\n\r! ]+$/u.test(value))
@@ -191,9 +193,16 @@ const Form = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        const emailExists = await EmailVerifier({ email: formValues.email })
+        const response = await fetch('/api/verify-email', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify({ email: formValues.email }),
+        })
+        const emailExists = await response.json()
 
-        if (!emailExists) {
+        if (!emailExists.valid) {
             setEmailValid(false)
             formValid.current.email = false
             return
