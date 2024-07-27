@@ -12,7 +12,7 @@ export default function Team() {
 
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
 
-    return (<AdminLayout pageTitle="Головна">
+    return (<AdminLayout pageTitle="Контакти">
         <CssBaseline />
     </AdminLayout>)
 }
