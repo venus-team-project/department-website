@@ -1,90 +1,57 @@
 package com.example.teachers_db_demo.model;
 
+
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 import java.util.Date;
 
 @Entity
-@Table(name = "books")
+@Getter
+@Setter
+@Builder
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name="books")
 public class Book {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id")
   private Long id;
 
-  @ManyToOne
-  @JoinColumn(name = "author_id", nullable = false)
-  private Author author;
+  @Column(name="author", nullable = false)
+  private String author;
 
   @Column(name = "data", nullable = false)
   @Temporal(TemporalType.DATE)
   private Date data;
 
-  @ManyToOne
-  @JoinColumn(name = "category_id", nullable = false)
-  private Category category;
+  @Column(name = "category", nullable = false)
+  private String category;
 
-  @Column(name = "title", nullable = false, length = 150)
+  @Column(name = "title", nullable = false)
   private String title;
 
-  @Column(name = "annotation", nullable = false, length = 255)
+  @Column(name = "annotation", nullable = false)
   private String annotation;
 
-  @Column(name = "pdf_url")
-  private String pdfUrl;
+/*
+  @Id
+  @GeneratedValue
+  @Column(name = "id")
+  private Long id;
 
-  // Getters and setters
-  public Long getId() {
-    return id;
-  }
+  @Column(name = "title")
+  private String title;
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+  @Column(name = "annotation")
+  private String annotation;
 
-  public Author getAuthor() {
-    return author;
-  }
-
-  public void setAuthor(Author author) {
-    this.author = author;
-  }
-
-  public Date getData() {
-    return data;
-  }
-
-  public void setData(Date data) {
-    this.data = data;
-  }
-
-  public Category getCategory() {
-    return category;
-  }
-
-  public void setCategory(Category category) {
-    this.category = category;
-  }
-
-  public String getTitle() {
-    return title;
-  }
-
-  public void setTitle(String title) {
-    this.title = title;
-  }
-
-  public String getAnnotation() {
-    return annotation;
-  }
-
-  public void setAnnotation(String annotation) {
-    this.annotation = annotation;
-  }
-
-  public String getPdfUrl() {
-    return pdfUrl;
-  }
-
-  public void setPdfUrl(String pdfUrl) {
-    this.pdfUrl = pdfUrl;
-  }
+ */
 }
