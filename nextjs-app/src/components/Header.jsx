@@ -83,7 +83,7 @@ export default function Header() {
         return () => {
             window.removeEventListener('resize', updateAppBarHeight)
         }
-    }, [appBarRef.current])
+    }, [appBarRef])
 
     return (
         <Box component="header">

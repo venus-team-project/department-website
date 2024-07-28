@@ -78,8 +78,8 @@ export default function Results({ params: { query } }) {
                         </Box>
                         <Typography variant="h6">Результати пошуку</Typography>
                         <Typography>
-                            За пошуковим запитом "{decodeURI(query)}" було
-                            знайдено {results.length} результат(ів)
+                            За пошуковим запитом &quot;{decodeURI(query)}&quot;
+                            було знайдено {results.length} результат(ів)
                         </Typography>
                         <Stack spacing={6} maxWidth={800}>
                             <SearchPublication />
