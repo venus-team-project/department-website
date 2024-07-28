@@ -1,6 +1,7 @@
 import Background from '@/components/Background'
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
+import SearchPublication from '@/components/SearchPublication'
 import {
     Box,
     Button,
@@ -9,16 +10,21 @@ import {
     List,
     ListItemText,
     Stack,
-    TextField,
     Typography,
 } from '@mui/material'
+import Link from 'next/link'
 
 const getPublications = async () => {
     const response = await fetch(
         'https://department-website.bulhakov.dev/api/db/books/list',
         { next: { revalidate: 60 } }
     )
-    return response.json()
+
+    const publications = await response.json()
+
+    return publications
+        .sort((a, b) => new Date(b.data) - new Date(a.data))
+        .slice(0, 4)
 }
 
 const PublicationCard = ({ data }) => {
@@ -30,7 +36,12 @@ const PublicationCard = ({ data }) => {
                     {data?.title || ''}
                 </Typography>
                 <Typography>{data?.annotation || ''}</Typography>
-                <Button fullWidth variant="outlined">
+                <Button
+                    fullWidth
+                    variant="outlined"
+                    LinkComponent={Link}
+                    href={`/science/${data?.id}`}
+                >
                     Читати далі
                 </Button>
             </Stack>
@@ -148,13 +159,8 @@ export default async function Science() {
                                 скористайтеся віконцем
                             </Typography>
                         </Grid>
-                        <Grid item xs={12} md={4}>
-                            <TextField fullWidth />
-                        </Grid>
-                        <Grid item xs={12} md={2}>
-                            <Button fullWidth variant="contained">
-                                Пошук
-                            </Button>
+                        <Grid item xs={12} md={6}>
+                            <SearchPublication />
                         </Grid>
                     </Grid>
                 </Container>
