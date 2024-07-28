@@ -7,7 +7,6 @@ import {
     Container,
     Grid,
     List,
-    ListItem,
     ListItemText,
     Stack,
     TextField,
@@ -16,7 +15,8 @@ import {
 
 const getPublications = async () => {
     const response = await fetch(
-        'https://department-website.bulhakov.dev/api/db/books/list'
+        'https://department-website.bulhakov.dev/api/db/books/list',
+        { next: { revalidate: 60 } }
     )
     return response.json()
 }
@@ -25,12 +25,7 @@ const PublicationCard = ({ data }) => {
     return (
         <Grid item xs={12} md={6}>
             <Stack spacing={4}>
-                <Typography>
-                    Автор -{' '}
-                    {`${data?.author?.firstName || ''} ${
-                        data?.author?.lastName || ''
-                    }`}
-                </Typography>
+                <Typography>Автор - {data?.author || ''}</Typography>
                 <Typography variant="h6" align="center">
                     {data?.title || ''}
                 </Typography>
