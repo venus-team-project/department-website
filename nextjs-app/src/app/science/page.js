@@ -6,6 +6,9 @@ import {
     Button,
     Container,
     Grid,
+    List,
+    ListItem,
+    ListItemText,
     Stack,
     TextField,
     Typography,
@@ -92,7 +95,7 @@ export default async function Science() {
                                     position: 'absolute',
                                     top: { xs: 20, sm: 40, md: 80 },
                                     right: 20,
-                                    maxWidth: '50%',
+                                    maxWidth: { xs: '90%', sm: '50%' },
                                     textAlign: 'end',
                                 }}
                             >
@@ -106,13 +109,13 @@ export default async function Science() {
                             <Typography variant="h5">
                                 Основні напрями наукової роботи кафедри:
                             </Typography>
-                            <Box component="ul" p={0} m={0}>
+                            <List>
                                 {directions.map((direction) => (
-                                    <Typography key={direction} component="li">
-                                        {direction}
-                                    </Typography>
+                                    <ListItemText key={direction}>
+                                        – {direction}
+                                    </ListItemText>
                                 ))}
-                            </Box>
+                            </List>
                         </Box>
                     </Box>
                     <Typography py={4} variant="h4" align="center">

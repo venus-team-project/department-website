@@ -71,7 +71,10 @@ export default function Footer() {
                                 >
                                     <MailOutline />
                                 </ListItemIcon>
-                                <Link href="mailto:agro.tech@bluniv.edu.ua">
+                                <Link
+                                    href="mailto:agro.tech@bluniv.edu.ua"
+                                    color="inherit"
+                                >
                                     <Typography>
                                         agro.tech@bluniv.edu.ua
                                     </Typography>
@@ -83,7 +86,10 @@ export default function Footer() {
                                 >
                                     <Phone />
                                 </ListItemIcon>
-                                <Link href="tel:+38 067 777 6767">
+                                <Link
+                                    href="tel:+38 067 777 6767"
+                                    color="inherit"
+                                >
                                     <Typography>+38 067 777 6767</Typography>
                                 </Link>
                             </ListItem>
