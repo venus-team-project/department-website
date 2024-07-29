@@ -2,10 +2,11 @@ import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 import { Box, Button, Container, Stack, Typography } from '@mui/material'
 import Link from 'next/link'
+import { notFound } from 'next/navigation'
 
 const getPublication = async (id) => {
     const response = await fetch(
-        `https://department-website.bulhakov.dev/api/db/books/${id}`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/db/books/${id}`,
         { next: { revalidate: 60 } }
     )
 
@@ -14,6 +15,11 @@ const getPublication = async (id) => {
 
 export default async function Publication({ params: { id } }) {
     const publication = await getPublication(id)
+
+    if (publication.error) {
+        return notFound()
+    }
+
     return (
         <>
             <Header />
@@ -65,7 +71,11 @@ export default async function Publication({ params: { id } }) {
                             display="flex"
                             justifyContent="center"
                         >
-                            <Button variant="contained">
+                            <Button
+                                href={`data:application/pdf;base64,${publication.pdf}`}
+                                variant="contained"
+                                download="paper.pdf"
+                            >
                                 Завантажити увесь текст
                             </Button>
                         </Box>
