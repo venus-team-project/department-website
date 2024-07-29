@@ -14,11 +14,12 @@ const getPublication = async (id) => {
 }
 
 export default async function Publication({ params: { id } }) {
-    if (params.error) {
+    const publication = await getPublication(id)
+
+    if (publication.error) {
         return notFound()
     }
 
-    const publication = await getPublication(id)
     return (
         <>
             <Header />
