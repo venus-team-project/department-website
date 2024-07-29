@@ -28,7 +28,8 @@ const NameValidatedTextField = ({
     const [error, setError] = useState(false)
 
     const handleChange = (e) => {
-        const newValue = e.target.value
+        const newValue = e.target.value.replace(/^\s+/g, '').replace(/\s{2,}/g, ' ')
+        
         const errorMessage = validator(newValue, minChars, maxChars)
 
         if (errorMessage === 'SymbolError') {
@@ -157,7 +158,7 @@ const MessageValidatedTextField = ({
 const nameValidator = (value, minChars, maxChars) => {
     if (value.length < minChars) return 'MinLengthError'
     if (value.length > maxChars) return 'MaxLengthError'
-    if (!/^[a-zA-Zа-яА-ЯіїєґІЇЄҐЁё\-'0-9, ]+$/.test(value)) return 'SymbolError'
+    if (!/^[a-zA-Zа-яА-ЯіїєґІЇЄҐЁё\-'0-9,\s]+$/.test(value)) return 'SymbolError'
     return false
 }
 
