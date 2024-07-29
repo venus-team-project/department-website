@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -66,6 +68,11 @@ public class BookController {
     service.deleteBook(id);
   }
 
+  @PostMapping("/{id}/upload")
+  @ResponseStatus(HttpStatus.OK)
+  public void uploadPdf(@PathVariable("id") Long id, @RequestParam("file") MultipartFile file) throws IOException {
+    service.savePdf(id, file);
+  }
 }
 
 

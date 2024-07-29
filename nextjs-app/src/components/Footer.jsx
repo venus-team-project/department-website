@@ -116,7 +116,8 @@ export default function Footer() {
                     flexWrap="wrap"
                 >
                     <Typography>
-                        © Бориславський лісовий університет 1976 - 2024
+                        © Бориславський лісовий університет 1976 -{' '}
+                        {new Date().getFullYear()}
                     </Typography>
 
                     <Typography>

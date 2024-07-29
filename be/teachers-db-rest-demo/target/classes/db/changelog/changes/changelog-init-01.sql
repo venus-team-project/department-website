@@ -6,6 +6,6 @@ create TABLE books (
     data DATE NOT NULL,
     category VARCHAR(50) NOT NULL,
     title VARCHAR(150) NOT NULL,
-    annotation VARCHAR(255) NOT NULL,
+    annotation VARCHAR(4000) NOT NULL,
     CONSTRAINT book_pkey PRIMARY KEY (id)
 );

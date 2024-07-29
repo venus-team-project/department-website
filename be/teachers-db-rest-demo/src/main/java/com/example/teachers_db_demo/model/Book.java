@@ -41,6 +41,8 @@ public class Book {
   @Column(name = "annotation", nullable = false)
   private String annotation;
 
+  @Lob
+  private byte[] pdf;
 /*
   @Id
   @GeneratedValue
