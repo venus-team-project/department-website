@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react'
 import {
-    Box,
     CssBaseline,
     Table,
     TableBody,
@@ -15,13 +14,24 @@ import {
     TablePagination,
     IconButton,
     useMediaQuery,
+    Dialog,
+    DialogTitle,
+    DialogActions,
+    Button,
+    Typography,
+    DialogContentText,
+    DialogContent,
+    Box,
 } from '@mui/material'
 
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
+import Close from '@mui/icons-material/Close'
 
 import theme from '@/app/theme.js'
 import AdminLayout from '@/components/admin/AdminLayout'
+import Link from 'next/link'
+import { Add } from '@mui/icons-material'
 
 export default function SciencePublications() {
     const [order, setOrder] = useState('asc')
@@ -29,12 +39,15 @@ export default function SciencePublications() {
     const [page, setPage] = useState(0)
     const [rowsPerPage, setRowsPerPage] = useState(10)
     const [publications, setPublications] = useState([])
+    const [deletePopupOpen, setDeletePopupOpen] = useState(false)
+    const [deletedPublication, setDeletedPublication] = useState({})
+
+    const baseUrl = 'https://department-website.bulhakov.dev'
+    // const baseUrl = 'http://localhost:8080'
 
     const getPublication = async () => {
         try {
-            const response = await fetch(
-                'https://department-website.bulhakov.dev/api/db/books/list'
-            )
+            const response = await fetch(`${baseUrl}/api/db/books/list`)
 
             const allPublications = await response.json()
 
@@ -63,6 +76,79 @@ export default function SciencePublications() {
         setPage(0)
     }
 
+    const handleDeletePublication = async (id) => {
+        try {
+            const response = await fetch(`${baseUrl}/api/db/books/${id}`, {
+                method: 'DELETE',
+            })
+            if (response.ok) {
+                getPublication()
+                toggleDeletePopup()
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const toggleDeletePopup = (id) => {
+        setDeletedPublication(
+            publications.find((publication) => publication?.id === id) || {}
+        )
+        setDeletePopupOpen(!deletePopupOpen)
+    }
+
+    const DeletePopup = ({ deletedPublication }) => {
+        return (
+            <Dialog open={deletePopupOpen} onClose={toggleDeletePopup}>
+                <DialogTitle>
+                    <Typography variant="h5" color="error">
+                        Видалення публікації
+                    </Typography>
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        <Typography variant="h6" align="center">
+                            Ви дійсно бажаєте видалити публікацію{' '}
+                            <Typography
+                                variant="inherit"
+                                component="span"
+                                sx={{ textDecoration: 'underline' }}
+                            >
+                                {deletedPublication.title}
+                            </Typography>{' '}
+                            автора{' '}
+                            <Typography
+                                variant="inherit"
+                                component="span"
+                                sx={{ textDecoration: 'underline' }}
+                            >
+                                {deletedPublication.author}
+                            </Typography>
+                        </Typography>
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button
+                        color="success"
+                        startIcon={<Close />}
+                        onClick={toggleDeletePopup}
+                    >
+                        Відміна
+                    </Button>
+                    <Button
+                        color="error"
+                        startIcon={<DeleteIcon />}
+                        onClick={() =>
+                            handleDeletePublication(deletedPublication.id)
+                        }
+                    >
+                        Видалити
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        )
+    }
+
     const sortedSciencePublications = [...publications].sort((a, b) => {
         if (orderBy === 'title') {
             return order === 'asc'
@@ -76,10 +162,10 @@ export default function SciencePublications() {
             return order === 'asc'
                 ? a.category.localeCompare(b.category)
                 : b.category.localeCompare(a.category)
-        } else if (orderBy === 'date') {
+        } else if (orderBy === 'data') {
             return order === 'asc'
-                ? new Date(a.date) - new Date(b.date)
-                : new Date(b.date) - new Date(a.date)
+                ? new Date(a.data) - new Date(b.data)
+                : new Date(b.data) - new Date(a.data)
         }
         return 0
     })
@@ -95,6 +181,16 @@ export default function SciencePublications() {
     return (
         <AdminLayout pageTitle="НАУКОВА РОБОТА">
             <CssBaseline />
+            <Box width="100%" display="flex" justifyContent="flex-end">
+                <Button
+                    variant="contained"
+                    startIcon={<Add />}
+                    LinkComponent={Link}
+                    href="/admin/science/new"
+                >
+                    Створити
+                </Button>
+            </Box>
             <TableContainer component={Paper} sx={{ mt: 2, overflowX: 'auto' }}>
                 <Table
                     sx={{ minWidth: isSmallScreen ? 300 : 750 }}
@@ -180,11 +276,11 @@ export default function SciencePublications() {
                                 }}
                             >
                                 <TableSortLabel
-                                    active={orderBy === 'date'}
+                                    active={orderBy === 'data'}
                                     direction={
-                                        orderBy === 'date' ? order : 'asc'
+                                        orderBy === 'data' ? order : 'asc'
                                     }
-                                    onClick={() => handleRequestSort('date')}
+                                    onClick={() => handleRequestSort('data')}
                                 >
                                     Дата
                                 </TableSortLabel>
@@ -218,7 +314,7 @@ export default function SciencePublications() {
                                     </TableCell>
                                     <TableCell>
                                         <a
-                                            href="/admin/science/1"
+                                            href={`/admin/science/${publication.id}`}
                                             style={{
                                                 color: theme.palette.primary
                                                     .main,
@@ -248,7 +344,7 @@ export default function SciencePublications() {
                                     >
                                         {publication.category}
                                     </TableCell>
-                                    <TableCell>{publication.date}</TableCell>
+                                    <TableCell>{publication.data}</TableCell>
                                     <TableCell>
                                         <div
                                             style={{
@@ -275,6 +371,8 @@ export default function SciencePublications() {
                                                         filter: 'brightness(0.85)',
                                                     },
                                                 }}
+                                                LinkComponent={Link}
+                                                href={`/admin/science/${publication.id}/edit`}
                                             >
                                                 <EditIcon />
                                             </IconButton>
@@ -293,6 +391,11 @@ export default function SciencePublications() {
                                                         filter: 'brightness(0.85)',
                                                     },
                                                 }}
+                                                onClick={() =>
+                                                    toggleDeletePopup(
+                                                        publication.id
+                                                    )
+                                                }
                                             >
                                                 <DeleteIcon />
                                             </IconButton>
@@ -312,6 +415,7 @@ export default function SciencePublications() {
                     onPageChange={handleChangePage}
                     onRowsPerPageChange={handleChangeRowsPerPage}
                 />
+                <DeletePopup deletedPublication={deletedPublication} />
             </TableContainer>
         </AdminLayout>
     )

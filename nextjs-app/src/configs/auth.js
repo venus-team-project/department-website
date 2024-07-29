@@ -2,7 +2,7 @@ import GoggleProvider from 'next-auth/providers/google'
 import Credentials from 'next-auth/providers/credentials'
 import { users } from '@/data/users'
 
-const allowedUsers = ['bulhakovolexii@gmail.com']
+const allowedUsers = ['admin@gmail.com', 'bulhakovolexii@gmail.com']
 
 export const authConfig = {
     providers: [
