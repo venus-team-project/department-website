@@ -35,7 +35,17 @@ const PublicationCard = ({ data }) => {
                 <Typography variant="h6" align="center">
                     {data?.title || ''}
                 </Typography>
-                <Typography>{data?.annotation || ''}</Typography>
+                <Typography
+                    sx={{
+                        display: '-webkit-box',
+                        WebkitLineClamp: '3',
+                        WebkitBoxOrient: 'vertical',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                    }}
+                >
+                    {data?.annotation || ''}
+                </Typography>
                 <Button
                     fullWidth
                     variant="outlined"

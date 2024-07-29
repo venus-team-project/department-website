@@ -95,7 +95,15 @@ export default function Results({ params: { query } }) {
                                           >
                                               {data?.title || ''}
                                           </Typography>
-                                          <Typography>
+                                          <Typography
+                                              sx={{
+                                                  display: '-webkit-box',
+                                                  WebkitLineClamp: '3',
+                                                  WebkitBoxOrient: 'vertical',
+                                                  overflow: 'hidden',
+                                                  textOverflow: 'ellipsis',
+                                              }}
+                                          >
                                               {data?.annotation || ''}
                                           </Typography>
                                           <Button

@@ -2,6 +2,8 @@ import GoggleProvider from 'next-auth/providers/google'
 import Credentials from 'next-auth/providers/credentials'
 import { users } from '@/data/users'
 
+const allowedUsers = ['bulhakovolexii@gmail.com']
+
 export const authConfig = {
     providers: [
         GoggleProvider({
@@ -37,7 +39,17 @@ export const authConfig = {
             },
         }),
     ],
+    callbacks: {
+        async signIn({ user, account, profile, email, credentials }) {
+            if (allowedUsers.includes(user.email)) {
+                return true
+            } else {
+                return false
+            }
+        },
+    },
     pages: {
         signIn: '/admin/login',
+        error: '/admin/error',
     },
 }

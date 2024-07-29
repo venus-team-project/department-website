@@ -22,13 +22,31 @@ import DeleteIcon from '@mui/icons-material/Delete'
 
 import theme from '@/app/theme.js'
 import AdminLayout from '@/components/admin/AdminLayout'
-import publications from './publications.json'
 
 export default function SciencePublications() {
     const [order, setOrder] = useState('asc')
     const [orderBy, setOrderBy] = useState('title')
     const [page, setPage] = useState(0)
     const [rowsPerPage, setRowsPerPage] = useState(10)
+    const [publications, setPublications] = useState([])
+
+    const getPublication = async () => {
+        try {
+            const response = await fetch(
+                'https://department-website.bulhakov.dev/api/db/books/list'
+            )
+
+            const allPublications = await response.json()
+
+            setPublications(allPublications)
+        } catch (error) {
+            console.error('Error fetching data:', error)
+        }
+    }
+
+    useEffect(() => {
+        getPublication()
+    }, [])
 
     const handleRequestSort = (property) => {
         const isAsc = orderBy === property && order === 'asc'
@@ -73,13 +91,6 @@ export default function SciencePublications() {
 
     // const isSmallScreen = useMediaQuery('(max-width:600px)')
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
-
-    console.log(
-        publications.map(
-            (pub) =>
-                `INSERT INTO books VALUES(default, '${pub.author}','${pub.date}','${pub.category}','${pub.title}', 'Annotation 4');`
-        )
-    )
 
     return (
         <AdminLayout pageTitle="НАУКОВА РОБОТА">

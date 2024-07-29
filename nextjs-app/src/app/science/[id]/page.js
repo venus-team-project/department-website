@@ -25,7 +25,7 @@ export default async function Publication({ params: { id } }) {
                 }}
             >
                 <Container maxWidth="lg">
-                    <Stack spacing={6}>
+                    <Stack spacing={6} my={4}>
                         <Box
                             width="100%"
                             display="flex"
@@ -42,16 +42,21 @@ export default async function Publication({ params: { id } }) {
                         <Typography variant="h6">
                             Перегляд публікації
                         </Typography>
-                        <Stack direction="row" spacing={4}>
+                        <Stack direction="row" spacing={4} fontStyle="italic">
                             <Typography>Автор: {publication.author}</Typography>
                             <Typography>
                                 Дата публікації: {publication.data}
                             </Typography>
                         </Stack>
-                        <Typography variant="h6" component="h1" align="center">
+                        <Typography
+                            variant="h6"
+                            component="h1"
+                            align="center"
+                            fontStyle="italic"
+                        >
                             {publication.title}
                         </Typography>
-                        <Typography>
+                        <Typography fontStyle="italic">
                             Категорія: {publication.category}
                         </Typography>
                         <Typography>{publication.annotation}</Typography>
