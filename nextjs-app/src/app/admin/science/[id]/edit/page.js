@@ -173,7 +173,7 @@ export default function ScienceWork({ params: { id } }) {
 
     const buttons = [
         {
-            label: 'НАЗАД',
+            label: 'ВІДХИЛИТИ',
             icon: <ArrowBackIcon />,
             backgroundColor: theme.palette.primary.extraLight,
             color: 'black',

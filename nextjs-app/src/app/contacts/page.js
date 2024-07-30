@@ -28,8 +28,10 @@ const NameValidatedTextField = ({
     const [error, setError] = useState(false)
 
     const handleChange = (e) => {
-        const newValue = e.target.value.replace(/^\s+/g, '').replace(/\s{2,}/g, ' ')
-        
+        const newValue = e.target.value
+            .replace(/^\s+/g, '')
+            .replace(/\s{2,}/g, ' ')
+
         const errorMessage = validator(newValue, minChars, maxChars)
 
         if (errorMessage === 'SymbolError') {
@@ -158,7 +160,8 @@ const MessageValidatedTextField = ({
 const nameValidator = (value, minChars, maxChars) => {
     if (value.length < minChars) return 'MinLengthError'
     if (value.length > maxChars) return 'MaxLengthError'
-    if (!/^[a-zA-Zа-яА-ЯіїєґІЇЄҐЁё\-'0-9,\s]+$/.test(value)) return 'SymbolError'
+    if (!/^[a-zA-Zа-яА-ЯіїєґІЇЄҐЁё\-'0-9,\s]+$/.test(value))
+        return 'SymbolError'
     return false
 }
 
@@ -326,13 +329,16 @@ const ContactsGrid = () => {
             </Box>
             <Box>
                 <Typography fontSize="24px">Пошта:</Typography>
-                <Link href="mailto:agro.tech@bluniv.edu.ua">
+                <Link
+                    href="mailto:agro.tech@bluniv.edu.ua"
+                    color="primary.dark"
+                >
                     <Typography>agro.tech@bluniv.edu.ua</Typography>
                 </Link>
             </Box>
             <Box>
                 <Typography fontSize="24px">Телефон:</Typography>
-                <Link href="tel:+380 50 123 4567">
+                <Link href="tel:+380 50 123 4567" color="primary.dark">
                     <Typography>+380 50 123 4567</Typography>
                 </Link>
             </Box>
@@ -380,7 +386,7 @@ export default function Contacts() {
                             xs={12}
                             display="flex"
                             flexDirection="column"
-                            sx={{gap: {xs: 2, md: 4}}}
+                            sx={{ gap: { xs: 2, md: 4 } }}
                         >
                             <ContactsGrid />
                         </Grid>

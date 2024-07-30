@@ -1,3 +1,6 @@
+'use client'
+
+import { useState, useEffect } from 'react'
 import Background from '@/components/Background'
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
@@ -22,9 +25,7 @@ const getPublications = async () => {
 
     const publications = await response.json()
 
-    return publications
-        .sort((a, b) => new Date(b.data) - new Date(a.data))
-        .slice(0, 4)
+    return publications.sort((a, b) => new Date(b.data) - new Date(a.data))
 }
 
 const PublicationCard = ({ data }) => {
@@ -70,8 +71,22 @@ const directions = [
     'керівництво НДР студентів із залученням талановитої молоді до наукової роботи через участь у наукових гуртках, конференціях, конкурсах, предметних олімпіадах тощо.',
 ]
 
-export default async function Science() {
-    const publications = await getPublications()
+export default function Science() {
+    const [publications, setPublications] = useState([])
+    const [visibleCount, setVisibleCount] = useState(4)
+
+    useEffect(() => {
+        const fetchPublications = async () => {
+            const pubs = await getPublications()
+            setPublications(pubs)
+        }
+
+        fetchPublications()
+    }, [])
+
+    const loadMore = () => {
+        setVisibleCount((prevCount) => prevCount + 4)
+    }
 
     return (
         <>
@@ -88,8 +103,7 @@ export default async function Science() {
                     <Box component="section">
                         <Box
                             position="relative"
-                            display="flex
-                        "
+                            display="flex"
                             flexDirection="column"
                             gap={4}
                             my={3}
@@ -147,7 +161,7 @@ export default async function Science() {
                     <Grid container component="section" spacing={4}>
                         {Array.isArray(publications) &&
                             publications
-                                .slice(-4)
+                                .slice(0, visibleCount)
                                 .map((publication) => (
                                     <PublicationCard
                                         key={publication.id}
@@ -155,6 +169,15 @@ export default async function Science() {
                                     />
                                 ))}
                     </Grid>
+                    <Box display="flex" justifyContent="center" py={4}>
+                        <Button
+                            variant="contained"
+                            onClick={loadMore}
+                            disabled={visibleCount >= publications.length}
+                        >
+                            Завантажити ще
+                        </Button>
+                    </Box>
 
                     <Grid container spacing={4} py={5} alignItems="center">
                         <Grid item xs={12} md={6}>

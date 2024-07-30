@@ -307,6 +307,7 @@ export default function SciencePublications() {
                                             display: {
                                                 xs: 'none',
                                                 sm: 'table-cell',
+                                                fontWeight: 500,
                                             },
                                         }}
                                     >
@@ -317,8 +318,9 @@ export default function SciencePublications() {
                                             href={`/admin/science/${publication.id}`}
                                             style={{
                                                 color: theme.palette.primary
-                                                    .main,
+                                                    .dark,
                                                 textDecoration: 'none',
+                                                fontWeight: 500,
                                             }}
                                         >
                                             {publication.title}
@@ -329,6 +331,7 @@ export default function SciencePublications() {
                                             display: {
                                                 xs: 'none',
                                                 sm: 'table-cell',
+                                                fontWeight: 500,
                                             },
                                         }}
                                     >
@@ -339,12 +342,15 @@ export default function SciencePublications() {
                                             display: {
                                                 xs: 'none',
                                                 sm: 'table-cell',
+                                                fontWeight: 500,
                                             },
                                         }}
                                     >
                                         {publication.category}
                                     </TableCell>
-                                    <TableCell>{publication.data}</TableCell>
+                                    <TableCell sx={{ fontWeight: 500 }}>
+                                        {publication.data}
+                                    </TableCell>
                                     <TableCell>
                                         <div
                                             style={{
@@ -409,7 +415,7 @@ export default function SciencePublications() {
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 25, 50]}
                     component="div"
-                    count={SciencePublications.length}
+                    count={publications.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}

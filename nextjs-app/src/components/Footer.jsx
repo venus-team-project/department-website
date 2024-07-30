@@ -32,16 +32,32 @@ export default function Footer() {
                             нових висот у агроінформаційних технологіях
                         </Typography>
                         <Box py={1} ml={-1}>
-                            <IconButton component="a" href="#">
+                            <IconButton
+                                component="a"
+                                href="https://www.instagram.com/"
+                                target="_blank"
+                            >
                                 <Instagram />
                             </IconButton>
-                            <IconButton component="a" href="#">
+                            <IconButton
+                                component="a"
+                                href="https://www.facebook.com/"
+                                target="_blank"
+                            >
                                 <Facebook />
                             </IconButton>
-                            <IconButton component="a" href="#">
+                            <IconButton
+                                component="a"
+                                href="https://x.com/"
+                                target="_blank"
+                            >
                                 <Twitter />
                             </IconButton>
-                            <IconButton component="a" href="#">
+                            <IconButton
+                                component="a"
+                                href="https://www.linkedin.com/"
+                                target="_blank"
+                            >
                                 <LinkedIn />
                             </IconButton>
                         </Box>

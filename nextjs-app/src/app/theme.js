@@ -34,6 +34,9 @@ const theme = createTheme({
                 textPrimary: {
                     color: '#000000DE',
                 },
+                containedPrimary: {
+                    backgroundColor: '#2E7D32',
+                },
             },
         },
     },
