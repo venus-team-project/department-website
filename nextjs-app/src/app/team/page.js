@@ -119,32 +119,16 @@ const AboutCard = (card) => {
 }
 
 const firstColumnPhotos = [
-    { src: '/team/firstColumn/1.png',
-        alt: ''
-     },
-    { src: '/team/firstColumn/2.png',
-        alt: ''
-    },
-    { src: '/team/firstColumn/3.png',
-        alt: ''
-     },
-    { src: '/team/firstColumn/4.png', 
-        alt: ''
-    },
+    { src: '/team/firstColumn/1.png', alt: '' },
+    { src: '/team/firstColumn/2.png', alt: '' },
+    { src: '/team/firstColumn/3.png', alt: '' },
+    { src: '/team/firstColumn/4.png', alt: '' },
 ]
 const secondColumnPhotos = [
-    { src: '/team/secondColumn/1.png',
-        alt: ''
-    },
-    { src: '/team/secondColumn/2.png',
-        alt: ''
-    },
-    { src: '/team/secondColumn/3.png',
-        alt: ''
-     },
-    { src: '/team/secondColumn/4.png',
-        alt: ''
-    },
+    { src: '/team/secondColumn/1.png', alt: '' },
+    { src: '/team/secondColumn/2.png', alt: '' },
+    { src: '/team/secondColumn/3.png', alt: '' },
+    { src: '/team/secondColumn/4.png', alt: '' },
 ]
 
 const PhotoColumn = (photo) => {
@@ -164,7 +148,7 @@ const PhotoColumn = (photo) => {
 const professors = [
     {
         img: '/team/professors/1.png',
-        alt: 'professor\'s picture',
+        alt: "professor's picture",
         id: 1,
         title: 'Завідувач кафедри,',
         degree: 'д.т.н., професор Іванов О.П.',
@@ -173,7 +157,7 @@ const professors = [
     },
     {
         img: '/team/professors/2.png',
-        alt: 'professor\'s picture',
+        alt: "professor's picture",
         id: 2,
         title: 'Професорка кафедри,',
         degree: 'к.т.н.,  Іванова І.І.',
@@ -182,7 +166,7 @@ const professors = [
     },
     {
         img: '/team/professors/3.png',
-        alt: 'professor\'s picture',
+        alt: "professor's picture",
         id: 3,
         title: 'Ще одна професорка кафедри,',
         degree: 'к.т.н.,  Іванова І.І.',
@@ -205,19 +189,23 @@ const ProfessorCard = (card) => {
                 ></Box>
             </Grid>
             <Grid item md={8}>
-                
                 <Box>
                     <Typography
                         variant="h6"
-                        color="rgba(58, 184, 4, 1)"
+                        color="primary.dark"
                         sx={{ flexGrow: 1 }}
                     >
                         {card.title}
                     </Typography>
                     <Typography variant="h6">{card.degree}</Typography>
                     <Typography>{card.abstract}</Typography>
-                    <Box  textAlign="center" sx={{mt: {xs: 0, lg: 7, xl: 12}}}>
-                        <Button variant="outlined" href={`/team/${card.id}`}>Читати далі</Button>
+                    <Box
+                        textAlign="center"
+                        sx={{ mt: { xs: 0, lg: 7, xl: 12 } }}
+                    >
+                        <Button variant="outlined" href={`/team/${card.id}`}>
+                            Читати далі
+                        </Button>
                     </Box>
                 </Box>
             </Grid>
@@ -250,7 +238,7 @@ export default function Team() {
                                 Про{' '}
                                 <span
                                     style={{
-                                        color: theme.palette.primary.main,
+                                        color: theme.palette.primary.dark,
                                     }}
                                 >
                                     кафедру

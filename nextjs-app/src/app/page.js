@@ -96,7 +96,7 @@ export default function Home() {
                                 Вітаємо у світі сучасних{' '}
                                 <span
                                     style={{
-                                        color: theme.palette.primary.main,
+                                        color: theme.palette.primary.dark,
                                     }}
                                 >
                                     аграрних
@@ -141,7 +141,7 @@ export default function Home() {
                             Наші актуальні{' '}
                             <span
                                 style={{
-                                    color: theme.palette.primary.main,
+                                    color: theme.palette.primary.dark,
                                 }}
                             >
                                 новини

@@ -153,7 +153,7 @@ export default function Science() {
                         <Typography
                             component="span"
                             variant="inherit"
-                            color="primary.light"
+                            color="primary.dark"
                         >
                             здобудки
                         </Typography>
@@ -185,7 +185,7 @@ export default function Science() {
                                 Для пошуку необхідної{' '}
                                 <Typography
                                     component="span"
-                                    color="primary.main"
+                                    color="primary.dark"
                                 >
                                     інформації
                                 </Typography>{' '}
