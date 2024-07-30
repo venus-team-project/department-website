@@ -15,7 +15,7 @@ export default function ScienceWork({ params: { id } }) {
     const [drawerOpen, setDrawerOpen] = useState(false)
     const [publication, setPublication] = useState({})
     const baseurl = `${process.env.NEXT_PUBLIC_BASE_URL}`
-    
+
     const getPublication = async () => {
         try {
             const response = await fetch(`${baseurl}api/db/books/${id}`)
@@ -156,10 +156,12 @@ export default function ScienceWork({ params: { id } }) {
                             color: theme.palette.primary.main,
                         }}
                     >
-                        Завантажено файл NAME.PDF
+                        {publication.pdf
+                            ? `Завантажено файл "${'NAME.PDF'}"`
+                            : `Файл не завантажено`}
                     </Typography>
                     <Button
-                        variant="contained" 
+                        variant="contained"
                         startIcon={<DownloadIcon />}
                         sx={{
                             backgroundColor: theme.palette.primary.main,
@@ -171,6 +173,7 @@ export default function ScienceWork({ params: { id } }) {
                         }}
                         href={`data:application/pdf;base64,${publication.pdf}`}
                         download="name.pdf"
+                        disabled={!publication.pdf}
                     >
                         Завантажити повний текст
                     </Button>

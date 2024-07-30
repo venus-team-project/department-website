@@ -7,7 +7,7 @@ import { notFound } from 'next/navigation'
 const getPublication = async (id) => {
     const response = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}api/db/books/${id}`,
-        { next: { revalidate: 60 } }   
+        { next: { revalidate: 60 } }
     )
 
     return response.json()
@@ -75,6 +75,7 @@ export default async function Publication({ params: { id } }) {
                                 href={`data:application/pdf;base64,${publication.pdf}`}
                                 variant="contained"
                                 download="paper.pdf"
+                                disabled={!publication.pdf}
                             >
                                 Завантажити увесь текст
                             </Button>

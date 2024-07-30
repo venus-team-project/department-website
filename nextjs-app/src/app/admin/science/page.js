@@ -78,7 +78,7 @@ export default function SciencePublications() {
 
     const handleDeletePublication = async (id) => {
         try {
-            const response = await fetch(`${baseUrl}/api/db/books/${id}`, {
+            const response = await fetch(`${baseUrl}api/db/books/${id}`, {
                 method: 'DELETE',
             })
             if (response.ok) {
