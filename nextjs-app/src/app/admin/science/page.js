@@ -409,7 +409,7 @@ export default function SciencePublications() {
                 <TablePagination
                     rowsPerPageOptions={[5, 10, 25, 50]}
                     component="div"
-                    count={SciencePublications.length}
+                    count={publications.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}
