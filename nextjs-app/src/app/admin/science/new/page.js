@@ -30,8 +30,14 @@ import {
     AuthorValidatedTextField,
     authorValidator,
 } from '../components/authorValidatedTextField'
-import { CategoryValidatedTextField, categoryValidator } from '../components/categoryValidatedTextField'
-import { AnnotationValidatedTextField, annotationValidator } from '../components/annotationValidatedTextField'
+import {
+    CategoryValidatedTextField,
+    categoryValidator,
+} from '../components/categoryValidatedTextField'
+import {
+    AnnotationValidatedTextField,
+    annotationValidator,
+} from '../components/annotationValidatedTextField'
 
 export default function ScienceWork({ params: { id } }) {
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
@@ -104,13 +110,13 @@ export default function ScienceWork({ params: { id } }) {
         title: false,
         author: false,
         category: false,
-        annotation: false
+        annotation: false,
     })
     const [formValues, setFormValues] = useState({
         title: '',
         author: '',
         category: '',
-        annotation: ''
+        annotation: '',
     })
 
     const handleSubmit = async (e) => {
@@ -137,7 +143,7 @@ export default function ScienceWork({ params: { id } }) {
             pdf: base64File,
         }
 
-            console.log(publicationData)
+        console.log(publicationData)
         try {
             const response = await fetch(`${baseurl}api/db/books`, {
                 method: 'POST',
@@ -298,22 +304,22 @@ export default function ScienceWork({ params: { id } }) {
                             defaultValue={publication.annotation || ''}
                         /> */}
                         <AnnotationValidatedTextField
-                                name="annotation"
-                                validator={annotationValidator}
-                                value={formValues.annotation}
-                                onChange={(isValid) =>
-                                    (formValid.current.annotation = isValid)
-                                }
-                                setValue={(value) =>
-                                    setFormValues({
-                                        ...formValues,
-                                        annotation: value,
-                                    })
-                                }
-                                minChars={10}
-                                maxChars={4000}
-                                label={'Анотація'}
-                            />
+                            name="annotation"
+                            validator={annotationValidator}
+                            value={formValues.annotation}
+                            onChange={(isValid) =>
+                                (formValid.current.annotation = isValid)
+                            }
+                            setValue={(value) =>
+                                setFormValues({
+                                    ...formValues,
+                                    annotation: value,
+                                })
+                            }
+                            minChars={10}
+                            maxChars={4000}
+                            label={'Вступне слово'}
+                        />
                         <Typography
                             variant="body1"
                             sx={{

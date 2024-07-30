@@ -329,7 +329,7 @@ export default function ScienceWork({ params: { id } }) {
                             }
                             minChars={10}
                             maxChars={4000}
-                            label={'Анотація'}
+                            label={'Вступне слово'}
                             defaultValue={publication.annotation || ''}
                         />
                         <Typography
