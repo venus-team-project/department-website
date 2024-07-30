@@ -64,7 +64,7 @@ export const AnnotationValidatedTextField = ({
 export const annotationValidator = (value, minChars, maxChars) => {
     if (value.length < minChars) return 'MinLengthError'
     if (value.length > maxChars) return 'MaxLengthError'
-    if (!/^[a-zA-Zа-яА-ЯіїєґІЇЄҐЁё'0-9,:.;()?\p{Pd}\n+\r! ]+$/u.test(value))
+    if (!/^[a-zA-Zа-яА-ЯіїєґІЇЄҐЁё'0-9,:.;()?\p{Pd}\n\r ]+$/u.test(value))
         return 'SymbolError'
     return false
 }
