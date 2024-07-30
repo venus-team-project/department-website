@@ -176,7 +176,7 @@ export default function ScienceWork({ params: { id } }) {
             url: '/admin/science',
         },
         {
-            label: 'ЗБЕРЕГТИ',
+            label: 'СТВОРИТИ',
             icon: <Save />,
             type: 'submit',
         },
