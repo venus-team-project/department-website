@@ -42,12 +42,12 @@ export default function SciencePublications() {
     const [deletePopupOpen, setDeletePopupOpen] = useState(false)
     const [deletedPublication, setDeletedPublication] = useState({})
 
-    const baseUrl = 'https://department-website.bulhakov.dev'
-    // const baseUrl = 'http://localhost:8080'
+    const baseUrl = `${process.env.NEXT_PUBLIC_BASE_URL}`
+    // const baseUrl = 'http://localhost:8080/'
 
     const getPublication = async () => {
         try {
-            const response = await fetch(`${baseUrl}/api/db/books/list`)
+            const response = await fetch(`${baseUrl}api/db/books/list`)
 
             const allPublications = await response.json()
 
@@ -78,7 +78,7 @@ export default function SciencePublications() {
 
     const handleDeletePublication = async (id) => {
         try {
-            const response = await fetch(`${baseUrl}/api/db/books/${id}`, {
+            const response = await fetch(`${baseUrl}api/db/books/${id}`, {
                 method: 'DELETE',
             })
             if (response.ok) {

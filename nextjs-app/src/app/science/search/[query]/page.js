@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react'
 export default function Results({ params: { query } }) {
     const [results, setResults] = useState([])
     const router = useRouter()
-    const baseurl = 'https://department-website.bulhakov.dev/'
+    const baseurl = `${process.env.NEXT_PUBLIC_BASE_URL}`
     const handleSearch = async () => {
         try {
             const responseByCategory = await fetch(

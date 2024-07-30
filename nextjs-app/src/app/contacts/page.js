@@ -325,6 +325,12 @@ const ContactsGrid = () => {
                 </Typography>
             </Box>
             <Box>
+                <Typography fontSize="24px">Пошта:</Typography>
+                <Link href="mailto:agro.tech@bluniv.edu.ua">
+                    <Typography>agro.tech@bluniv.edu.ua</Typography>
+                </Link>
+            </Box>
+            <Box>
                 <Typography fontSize="24px">Телефон:</Typography>
                 <Link href="tel:+380 50 123 4567">
                     <Typography>+380 50 123 4567</Typography>
@@ -364,7 +370,7 @@ export default function Contacts() {
                     <Grid
                         container
                         component="section"
-                        spacing={3}
+                        spacing={4}
                         sx={{ my: { xs: 1, md: 3 } }}
                         alignItems="strech"
                     >
@@ -374,7 +380,7 @@ export default function Contacts() {
                             xs={12}
                             display="flex"
                             flexDirection="column"
-                            gap={8}
+                            sx={{gap: {xs: 2, md: 4}}}
                         >
                             <ContactsGrid />
                         </Grid>
