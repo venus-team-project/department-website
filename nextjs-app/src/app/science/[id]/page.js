@@ -6,8 +6,8 @@ import { notFound } from 'next/navigation'
 
 const getPublication = async (id) => {
     const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/db/books/${id}`,
-        { next: { revalidate: 60 } }
+        `${process.env.NEXT_PUBLIC_BASE_URL}api/db/books/${id}`,
+        { next: { revalidate: 60 } }   
     )
 
     return response.json()

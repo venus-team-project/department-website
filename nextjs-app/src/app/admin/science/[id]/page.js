@@ -14,8 +14,8 @@ export default function ScienceWork({ params: { id } }) {
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
     const [drawerOpen, setDrawerOpen] = useState(false)
     const [publication, setPublication] = useState({})
-    const baseurl = 'https://department-website.bulhakov.dev/'
-    // const baseurl = 'http://localhost:8080/'
+    const baseurl = `${process.env.NEXT_PUBLIC_BASE_URL}`
+    
     const getPublication = async () => {
         try {
             const response = await fetch(`${baseurl}api/db/books/${id}`)
@@ -159,7 +159,7 @@ export default function ScienceWork({ params: { id } }) {
                         Завантажено файл NAME.PDF
                     </Typography>
                     <Button
-                        variant="contained"
+                        variant="contained" 
                         startIcon={<DownloadIcon />}
                         sx={{
                             backgroundColor: theme.palette.primary.main,
@@ -167,8 +167,10 @@ export default function ScienceWork({ params: { id } }) {
                             textTransform: 'uppercase',
                             fontWeight: 600,
                             width: '100%',
-                            maxWidth: 300,
+                            maxWidth: 325,
                         }}
+                        href={`data:application/pdf;base64,${publication.pdf}`}
+                        download="name.pdf"
                     >
                         Завантажити повний текст
                     </Button>

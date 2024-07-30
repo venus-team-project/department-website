@@ -1,16 +1,17 @@
 package com.example.teachers_db_demo.service;
 
-
-import com.example.teachers_db_demo.model.Book;
-import com.example.teachers_db_demo.repository.BookRepository;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.example.teachers_db_demo.model.Book;
+import com.example.teachers_db_demo.repository.BookRepository;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @RequiredArgsConstructor
@@ -53,6 +54,9 @@ public class BookServiceImpl implements BookService {
             existingBook.setCategory(book.getCategory());
             existingBook.setTitle(book.getTitle());
             existingBook.setAnnotation(book.getAnnotation());
+            if (book.getPdf().length > 0) {
+                existingBook.setPdf(book.getPdf());
+            }
             return bookRepository.save(existingBook);
         }).orElseThrow(() -> new RuntimeException("Book not found"));
     }

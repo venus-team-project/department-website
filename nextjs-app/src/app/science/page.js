@@ -16,7 +16,7 @@ import Link from 'next/link'
 
 const getPublications = async () => {
     const response = await fetch(
-        'https://department-website.bulhakov.dev/api/db/books/list',
+        `${process.env.NEXT_PUBLIC_BASE_URL}api/db/books/list`,
         { next: { revalidate: 60 } }
     )
 

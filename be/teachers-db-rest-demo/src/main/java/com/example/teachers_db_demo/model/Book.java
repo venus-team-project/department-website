@@ -1,15 +1,23 @@
 package com.example.teachers_db_demo.model;
 
 
-import jakarta.persistence.*;
+import java.util.Date;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
-import java.util.Date;
 
 @Entity
 @Getter
@@ -42,6 +50,7 @@ public class Book {
   private String annotation;
 
   @Lob
+  @Column(name = "pdf", nullable = true)
   private byte[] pdf;
 /*
   @Id
